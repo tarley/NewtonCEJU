@@ -9,34 +9,38 @@
 
 <div class="x_title">
     <h2>Cadastro <small>Cliente</small></h2>
+    
+    <hr />
+        <div class="clearfix">
 
-    <div class="clearfix"></div>
+        </div>
 </div>
+
 <div class="x_content">
     <br>
     <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">
-                Nome <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nomecliente">
+                Nome Completo <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" id="nomecliente" required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cfp">
                 CPF <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="cpfcliente" name="cpfcliente" required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="emailcliente">
                 E-mail <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="nomecliente" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="emailcliente" name="emailcliente" required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div>
 
@@ -45,7 +49,7 @@
                 Senha <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="nomecliente" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="senhacliente" name ="senhacliente" required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div>
 
@@ -54,14 +58,16 @@
                 Confirmar Senha <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="nomecliente" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="Confirmasenhacliente" name="Confirmasenhacliente " required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div>
+        <br>
+        <br>
         <div class="ln_solid"></div>
         <div class="form-group">
             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-7">
-                <button type="reset" class="btn btn-primary">Cancel</button>
                 <button type="submit" class="btn btn-success">Enviar</button>
+                <button type="reset" class="btn btn-primary">Cancelar</button>
             </div>
         </div>
     </form>
