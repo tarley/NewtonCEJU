@@ -103,10 +103,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\flat\green%402x.png" />
+    <Content Include="Content\flat\green.css" />
+    <Content Include="Content\flat\green.png" />
+    <Content Include="Content\floatexamples.css" />
+    <Content Include="Content\Fonts\font-awesome.min.css" />
+    <Content Include="Content\jquery-jvectormap-2.0.3.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -117,16 +126,47 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap-progressbar.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chart.min.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\daterangepicker.js" />
+    <Content Include="Scripts\flot\curvedLines.js" />
+    <Content Include="Scripts\flot\date.js" />
+    <Content Include="Scripts\flot\jquery.flot.js" />
+    <Content Include="Scripts\flot\jquery.flot.orderBars.js" />
+    <Content Include="Scripts\flot\jquery.flot.pie.js" />
+    <Content Include="Scripts\flot\jquery.flot.resize.js" />
+    <Content Include="Scripts\flot\jquery.flot.spline.js" />
+    <Content Include="Scripts\flot\jquery.flot.stack.js" />
+    <Content Include="Scripts\flot\jquery.flot.time.min.js" />
+    <Content Include="Scripts\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\gauge\gauge.min.js" />
+    <Content Include="Scripts\gauge\gauge_demo.js" />
+    <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.nicescroll.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\maps\gdp-data.js" />
+    <Content Include="Scripts\maps\jquery-jvectormap-2.0.3.min.js" />
+    <Content Include="Scripts\maps\jquery-jvectormap-us-aea-en.js" />
+    <Content Include="Scripts\maps\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\nprogress.js" />
+    <Content Include="Scripts\pace.min.js" />
+    <Content Include="Scripts\skycons.min.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -172,6 +212,8 @@
     <Content Include="packages.config" />
     <Content Include="Views\CadastroCliente\Index.cshtml" />
     <Content Include="Views\AcompanhamentoAtendimento\Index.cshtml" />
+    <Content Include="Views\Shared\_MasterPage.cshtml" />
+    <Content Include="Scripts\maps\us-unemployment.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
