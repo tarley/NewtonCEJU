@@ -203,6 +203,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AreaJuridica.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Pergunta.cs" />
     <Compile Include="Models\Resposta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
