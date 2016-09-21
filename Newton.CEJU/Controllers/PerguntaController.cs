@@ -11,18 +11,18 @@ using Newton.CJU.Models;
 
 namespace Newton.CJU.Controllers
 {
-    public class PerguntasController : Controller
+    public class PerguntaController : Controller
     {
         private CJUContext db = new CJUContext();
 
-        // GET: Perguntas
+        // GET: Pergunta
         public ActionResult Index()
         {
             var perguntas = db.Perguntas.Include(p => p.Assunto);
             return View(perguntas.ToList());
         }
 
-        // GET: Perguntas/Details/5
+        // GET: Pergunta/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,19 +37,19 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // GET: Perguntas/Create
+        // GET: Pergunta/Create
         public ActionResult Create()
         {
             ViewBag.AssuntoID = new SelectList(db.Assuntos, "ID", "Descricao");
             return View();
         }
 
-        // POST: Perguntas/Create
+        // POST: Pergunta/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AssuntoID,Duvida,Descricao")] Pergunta pergunta)
+        public ActionResult Create([Bind(Include = "ID,AssuntoID,Partes,Duvida,Descricao")] Pergunta pergunta)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // GET: Perguntas/Edit/5
+        // GET: Pergunta/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,12 +78,12 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // POST: Perguntas/Edit/5
+        // POST: Pergunta/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AssuntoID,Duvida,Descricao")] Pergunta pergunta)
+        public ActionResult Edit([Bind(Include = "ID,AssuntoID,Partes,Duvida,Descricao")] Pergunta pergunta)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // GET: Perguntas/Delete/5
+        // GET: Pergunta/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +110,7 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // POST: Perguntas/Delete/5
+        // POST: Pergunta/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

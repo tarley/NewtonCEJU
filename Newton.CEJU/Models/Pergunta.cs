@@ -13,12 +13,21 @@ namespace Newton.CJU.Models
         [Key]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "Seleção da área jurídica é obrigatória!")]
+        [DisplayName("Escolha o tipo de assunto")]
+        [Required(ErrorMessage = "Seleção do assunto é obrigatória!")]
         public int AssuntoID { get; set; }
 
+        [DisplayName("Identificação das partes")]
+        [StringLength(100)]
+        [Required(ErrorMessage = "Este campo é obrigatório! Por favor, digite os nomes das partes.")]
+        public string Partes { get; set; }
+
+        [DisplayName("Informe sua dúvida")]
+        [StringLength(100)]
         [Required(ErrorMessage = "Este campo é obrigatório! Por favor, descreva de forma resumida sua dúvida.")]
         public string Duvida { get; set; }
 
+        [DisplayName("Descrição do caso (500 caracteres)")]
         [StringLength(500)]
         [Required(ErrorMessage ="Descrição é obrigatória!")]
         public string Descricao { get; set; }

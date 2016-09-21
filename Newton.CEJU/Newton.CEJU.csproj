@@ -199,7 +199,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerguntaController.cs" />
-    <Compile Include="Controllers\PerguntasController.cs" />
     <Compile Include="Controllers\RespostaController.cs" />
     <Compile Include="DAL\CJUContext.cs" />
     <Compile Include="DAL\CJUInitializer.cs" />
@@ -221,16 +220,16 @@
     <Content Include="Views\Shared\_MasterPage.cshtml" />
     <Content Include="Scripts\maps\us-unemployment.json" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Perguntas\Create.cshtml" />
-    <Content Include="Views\Perguntas\Delete.cshtml" />
-    <Content Include="Views\Perguntas\Details.cshtml" />
-    <Content Include="Views\Perguntas\Edit.cshtml" />
-    <Content Include="Views\Perguntas\Index.cshtml" />
     <Content Include="Views\Assunto\Create.cshtml" />
     <Content Include="Views\Assunto\Delete.cshtml" />
     <Content Include="Views\Assunto\Details.cshtml" />
     <Content Include="Views\Assunto\Edit.cshtml" />
     <Content Include="Views\Assunto\Index.cshtml" />
+    <Content Include="Views\Pergunta\Create.cshtml" />
+    <Content Include="Views\Pergunta\Delete.cshtml" />
+    <Content Include="Views\Pergunta\Details.cshtml" />
+    <Content Include="Views\Pergunta\Edit.cshtml" />
+    <Content Include="Views\Pergunta\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
