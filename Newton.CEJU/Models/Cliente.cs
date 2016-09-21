@@ -19,13 +19,8 @@ namespace Newton.CJU.Models
         [Column(Order = 1)]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Digite o CPF ")]
-        [MaxLength(11, ErrorMessage = "O tamanho maximo do cfp são 11 digitos.")]
-        [Column(Order = 2)]
-        public int cpf { get; set; }
-
         [Required(ErrorMessage = "Digite o e-mail.")]
-        [MaxLength(50, ErrorMessage = "O tamanho maximo do cfp são 50 digitos.")]
+        [MaxLength(50, ErrorMessage = "O tamanho maximo do e-mail são 50 digitos.")]
         [Column(Order = 3)]
         public string email { get; set; }
 
