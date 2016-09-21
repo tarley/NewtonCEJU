@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Newton.CJU.Models.Pergunta>
+﻿@model IEnumerable<Newton.CJU.Models.Assunto>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AreaJuridica.Area)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Repondido)
         </th>
         <th></th>
     </tr>
@@ -26,13 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AreaJuridica.Area)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Repondido)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

@@ -1,4 +1,4 @@
-﻿@model Newton.CJU.Models.Pergunta
+﻿@model Newton.CJU.Models.Assunto
 
 @{
     ViewBag.Title = "Edit";
@@ -12,32 +12,16 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Pergunta</h4>
+        <h4>Assunto</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AreaJuridicaID, "AreaJuridicaID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AreaJuridicaID", String.Empty)
-                @Html.ValidationMessageFor(model => model.AreaJuridicaID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descricao)
                 @Html.ValidationMessageFor(model => model.Descricao)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Repondido, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Repondido)
-                @Html.ValidationMessageFor(model => model.Repondido)
             </div>
         </div>
 

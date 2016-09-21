@@ -6,23 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Newton.CJU.Models;
 using Newton.CJU.DAL;
+using Newton.CJU.Models;
 
 namespace Newton.CJU.Controllers
 {
-    public class PerguntaController : Controller
+    public class PerguntasController : Controller
     {
         private CJUContext db = new CJUContext();
 
-        // GET: /Pergunta/
+        // GET: Perguntas
         public ActionResult Index()
         {
-            var perguntas = db.Perguntas.Include(p => p.AreaJuridica);
+            var perguntas = db.Perguntas.Include(p => p.Assunto);
             return View(perguntas.ToList());
         }
 
-        // GET: /Pergunta/Details/5
+        // GET: Perguntas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,19 +37,19 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // GET: /Pergunta/Create
+        // GET: Perguntas/Create
         public ActionResult Create()
         {
-            ViewBag.AreaJuridicaID = new SelectList(db.AreasJuridicas, "ID", "Area");
+            ViewBag.AssuntoID = new SelectList(db.Assuntos, "ID", "Descricao");
             return View();
         }
 
-        // POST: /Pergunta/Create
+        // POST: Perguntas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,AreaJuridicaID,Descricao,Repondido")] Pergunta pergunta)
+        public ActionResult Create([Bind(Include = "ID,AssuntoID,Duvida,Descricao")] Pergunta pergunta)
         {
             if (ModelState.IsValid)
             {
@@ -58,11 +58,11 @@ namespace Newton.CJU.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AreaJuridicaID = new SelectList(db.AreasJuridicas, "ID", "Area", pergunta.AreaJuridicaID);
+            ViewBag.AssuntoID = new SelectList(db.Assuntos, "ID", "Descricao", pergunta.AssuntoID);
             return View(pergunta);
         }
 
-        // GET: /Pergunta/Edit/5
+        // GET: Perguntas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,16 +74,16 @@ namespace Newton.CJU.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AreaJuridicaID = new SelectList(db.AreasJuridicas, "ID", "Area", pergunta.AreaJuridicaID);
+            ViewBag.AssuntoID = new SelectList(db.Assuntos, "ID", "Descricao", pergunta.AssuntoID);
             return View(pergunta);
         }
 
-        // POST: /Pergunta/Edit/5
+        // POST: Perguntas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,AreaJuridicaID,Descricao,Repondido")] Pergunta pergunta)
+        public ActionResult Edit([Bind(Include = "ID,AssuntoID,Duvida,Descricao")] Pergunta pergunta)
         {
             if (ModelState.IsValid)
             {
@@ -91,11 +91,11 @@ namespace Newton.CJU.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaJuridicaID = new SelectList(db.AreasJuridicas, "ID", "Area", pergunta.AreaJuridicaID);
+            ViewBag.AssuntoID = new SelectList(db.Assuntos, "ID", "Descricao", pergunta.AssuntoID);
             return View(pergunta);
         }
 
-        // GET: /Pergunta/Delete/5
+        // GET: Perguntas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +110,7 @@ namespace Newton.CJU.Controllers
             return View(pergunta);
         }
 
-        // POST: /Pergunta/Delete/5
+        // POST: Perguntas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

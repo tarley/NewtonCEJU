@@ -182,11 +182,6 @@
     <Content Include="Views\AreaJuridica\Details.cshtml" />
     <Content Include="Views\AreaJuridica\Edit.cshtml" />
     <Content Include="Views\AreaJuridica\Index.cshtml" />
-    <Content Include="Views\Pergunta\Create.cshtml" />
-    <Content Include="Views\Pergunta\Delete.cshtml" />
-    <Content Include="Views\Pergunta\Details.cshtml" />
-    <Content Include="Views\Pergunta\Edit.cshtml" />
-    <Content Include="Views\Pergunta\Index.cshtml" />
     <Content Include="Views\Resposta\Create.cshtml" />
     <Content Include="Views\Resposta\Delete.cshtml" />
     <Content Include="Views\Resposta\Details.cshtml" />
@@ -199,10 +194,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AcompanhamentoAtendimentoController.cs" />
     <Compile Include="Controllers\AreaJuridicaController.cs" />
+    <Compile Include="Controllers\AssuntoController.cs" />
     <Compile Include="Controllers\CadastroClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerguntaController.cs" />
+    <Compile Include="Controllers\PerguntasController.cs" />
     <Compile Include="Controllers\RespostaController.cs" />
     <Compile Include="DAL\CJUContext.cs" />
     <Compile Include="DAL\CJUInitializer.cs" />
@@ -211,6 +208,7 @@
     </Compile>
     <Compile Include="Models\AreaJuridica.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Assunto.cs" />
     <Compile Include="Models\Pergunta.cs" />
     <Compile Include="Models\Resposta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -223,6 +221,16 @@
     <Content Include="Views\Shared\_MasterPage.cshtml" />
     <Content Include="Scripts\maps\us-unemployment.json" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Perguntas\Create.cshtml" />
+    <Content Include="Views\Perguntas\Delete.cshtml" />
+    <Content Include="Views\Perguntas\Details.cshtml" />
+    <Content Include="Views\Perguntas\Edit.cshtml" />
+    <Content Include="Views\Perguntas\Index.cshtml" />
+    <Content Include="Views\Assunto\Create.cshtml" />
+    <Content Include="Views\Assunto\Delete.cshtml" />
+    <Content Include="Views\Assunto\Details.cshtml" />
+    <Content Include="Views\Assunto\Edit.cshtml" />
+    <Content Include="Views\Assunto\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,14 +8,22 @@
 
 <div>
     <h4>Pergunta</h4>
-	<hr />
+    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AreaJuridica.Area)
+            @Html.DisplayNameFor(model => model.Assunto.Descricao)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AreaJuridica.Area)
+            @Html.DisplayFor(model => model.Assunto.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duvida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duvida)
         </dd>
 
         <dt>
@@ -24,14 +32,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Descricao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Repondido)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Repondido)
         </dd>
 
     </dl>
