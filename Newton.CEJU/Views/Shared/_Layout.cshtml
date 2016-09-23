@@ -20,11 +20,38 @@
                 @Html.ActionLink("CJU - Newton Paiva", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("AreaJuridica", "Index", "AreaJuridica")</li>
-                    <li>@Html.ActionLink("Pergunta", "Index", "Pergunta")</li>
-                    <li>@Html.ActionLink("Resposta", "Index", "Resposta")</li>
-                </ul>
+
+
+                @using Microsoft.AspNet.Identity
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("AreaJuridica", "Index", "AreaJuridica")</li>
+                        <li>@Html.ActionLink("Pergunta", "Index", "Pergunta")</li>
+                        <li>@Html.ActionLink("Resposta", "Index", "Resposta")</li>
+                    </ul>
+
+                    using (Html.BeginForm("Sair", "Autenticacao", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Home")
+                            </li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Registrar-se", "Register", "Autenticacao", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Logar", "Login", "Autenticacao", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>
+                }
+
+
             </div>
         </div>
     </div>
@@ -39,5 +66,6 @@
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate"></script>
 </body>
 </html>

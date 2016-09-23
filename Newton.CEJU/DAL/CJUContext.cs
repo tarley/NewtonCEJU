@@ -2,12 +2,13 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 using Newton.CJU.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Newton.CJU.DAL
 {
-    public class CJUContext : DbContext
+    public class CJUContext : IdentityDbContext<Usuario>
     {
-        public CJUContext() : base("CJUContext") 
+        public CJUContext() : base("CJUContext", throwIfV1Schema: false) 
         { 
         }
 
@@ -18,7 +19,13 @@ namespace Newton.CJU.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+
+        public static CJUContext Create()
+        {
+            return new CJUContext();
         }
     }
 }
