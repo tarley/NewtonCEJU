@@ -6,13 +6,20 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Newton.CJU
 {
     public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
+        public void Configure(IAppBuilder app)
+        {
+            ConfigureAuth(app);
+            CreateRolesAndUsers();
+        }
+
+        private static void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(CJUContext.Create);
@@ -35,6 +42,63 @@ namespace Newton.CJU
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
+        }
+
+        // In this method we will create default User roles and Admin user for login   
+        private void CreateRolesAndUsers()
+        {
+            CJUContext context = CJUContext.Create();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<Usuario>(new UserStore<Usuario>(context));
+
+            if (!roleManager.RoleExists("Monitor"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Monitor";
+                roleManager.Create(role);
+
+                var user = new Usuario();
+                user.UserName = "monitor@gmail.com";
+                user.Email = "monitor@gmail.com";
+
+                string userPWD = "teste123";
+
+                var chkUser = UserManager.Create(user, userPWD);
+
+                //Add default User to Role Admin   
+                if (chkUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Monitor");
+                }
+
+            }
+
+            if (!roleManager.RoleExists("Professor"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Professor";
+                roleManager.Create(role);
+
+                var user = new Usuario();
+                user.UserName = "professor@gmail.com";
+                user.Email = "professor@gmail.com";
+
+                string userPWD = "teste123";
+
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Professor");
+                }
+            }
+
+            if (!roleManager.RoleExists("Usuario"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Usuario";
+                roleManager.Create(role);
+            }
         }
     }
 }

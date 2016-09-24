@@ -8,7 +8,7 @@ namespace Newton.CJU
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            Configure(app);
         }
     }
 }
