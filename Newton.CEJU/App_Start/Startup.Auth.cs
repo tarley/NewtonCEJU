@@ -93,10 +93,10 @@ namespace Newton.CJU
                 }
             }
 
-            if (!roleManager.RoleExists("Usuario"))
+            if (!roleManager.RoleExists("Cliente"))
             {
                 var role = new IdentityRole();
-                role.Name = "Usuario";
+                role.Name = "Cliente";
                 roleManager.Create(role);
             }
         }
