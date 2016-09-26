@@ -1,20 +1,18 @@
 ﻿@model IEnumerable<Newton.CJU.Models.AreaJuridica>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de área jurídica";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Area)
         </th>
-        <th></th>
+        <th>Ações</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -23,9 +21,9 @@
             @Html.DisplayFor(modelItem => item.Area)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

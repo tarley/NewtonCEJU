@@ -1,17 +1,15 @@
 ﻿@model Newton.CJU.Models.AreaJuridica
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>AreaJuridica</h4>
+    <h4>Área Jurídica</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Area)
+            @Html.DisplayNameFor(model => model.Area):
         </dt>
 
         <dd>
@@ -21,6 +19,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-success" }) 
+    @Html.ActionLink("Voltar para Lista", "Index", null, new { @class = "btn btn-default" })
 </p>
