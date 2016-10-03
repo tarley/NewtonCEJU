@@ -51,7 +51,7 @@ namespace Newton.CJU
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<Usuario>(new UserStore<Usuario>(context));
-
+            
             if (!roleManager.RoleExists("Monitor"))
             {
                 var role = new IdentityRole();

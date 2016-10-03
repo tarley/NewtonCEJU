@@ -12,11 +12,12 @@ namespace Newton.CJU.DAL
         { 
         }
 
-        public DbSet<AreaJuridica> AreasJuridicas { get; set; }
-        public DbSet<Pergunta> Perguntas { get; set; }
-        public DbSet<Resposta> Respostas { get; set; }
-        public DbSet<Assunto> Assuntos { get; set; }
-
+        public DbSet<AreaConhecimento> AreasConhecimento { get; set; }
+        public DbSet<AtividadeSemestral> AtividadesSemestrais { get; set; }
+        public DbSet<FatoCotidiano> FatosCotidiano { get; set; }
+        public DbSet<Historico> Historicos { get; set; }
+        public DbSet<Situacao> Situacoes { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -27,5 +28,7 @@ namespace Newton.CJU.DAL
         {
             return new CJUContext();
         }
+
+        public System.Data.Entity.DbSet<Newton.CJU.Models.Solicitacao> Solicitacaos { get; set; }
     }
 }

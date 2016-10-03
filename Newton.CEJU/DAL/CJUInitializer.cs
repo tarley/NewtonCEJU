@@ -11,16 +11,17 @@ namespace Newton.CJU.DAL
     {
         protected override void Seed(CJUContext context)
         {
+            /*
             var areas = new List<AreaJuridica>
             {
                 new AreaJuridica{ Area = "Cível" },
                 new AreaJuridica{ Area = "Criminal" },
                 new AreaJuridica{ Area = "Trabalhista" }
             };
-
             areas.ForEach(s => context.AreasJuridicas.Add(s));
-            context.SaveChanges();
-
+            
+            context.SaveChanges();*/
+            
         }
     }
 }
