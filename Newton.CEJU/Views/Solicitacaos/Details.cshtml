@@ -1,49 +1,25 @@
 ﻿@model Newton.CJU.Models.Solicitacao
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Solicitações";
 }
 
-<h2>Details</h2>
+<h2>Detalhes da Solicitação</h2>
 
 <div>
-    <h4>Solicitacao</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AtividadeSemestral.Id)
+            @Html.DisplayName("Nº Solicitação")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AtividadeSemestral.Id)
+            @Html.DisplayFor(model => model.Id)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Historico.Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Historico.Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Situacao.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Situacao.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsuarioId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsuarioId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataCadastro)
+            @Html.DisplayName("Data de Cadastro")
         </dt>
 
         <dd>
@@ -51,23 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Duvida)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Duvida)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Parecer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Parecer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FatoJuridico)
+            @Html.DisplayName("Fato Jurídico")
         </dt>
 
         <dd>
@@ -75,40 +35,32 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Fundamentacao)
+            @Html.DisplayName("Situação")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Fundamentacao)
+            @Html.DisplayFor(model => model.Situacao.Nome)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IdentificacaoPartes)
+            @Html.DisplayName("Dúvida")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IdentificacaoPartes)
+            @Html.DisplayFor(model => model.Duvida)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
+            @Html.DisplayName("Parecer")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Correcao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Correcao)
+            @Html.DisplayFor(model => model.Parecer)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <!-- @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) -->
+        @Html.ActionLink("Voltar", "Index")
 </p>
