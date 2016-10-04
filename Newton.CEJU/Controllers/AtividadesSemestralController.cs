@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Newton.CJU.Controllers
 {
@@ -18,7 +19,9 @@ namespace Newton.CJU.Controllers
         // GET: AtividadesSemestral
         public ActionResult Index()
         {
-            var atividadesSemestrais = db.AtividadesSemestrais.Include(a => a.AreaConhecimento);
+            var atividadesSemestrais = db.AtividadesSemestrais
+                                            .Include(a => a.AreaConhecimento)
+                                            .Include(a => a.Usuario);
             return View(atividadesSemestrais.ToList());
         }
 
@@ -49,10 +52,14 @@ namespace Newton.CJU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UsuarioId,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
+        public ActionResult Create([Bind(Include = "Id,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
         {
             if (ModelState.IsValid)
             {
+                var userID = User.Identity.GetUserId();
+
+                atividadeSemestral.UsuarioId = new Guid(userID);
+                
                 db.AtividadesSemestrais.Add(atividadeSemestral);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,7 +90,7 @@ namespace Newton.CJU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UsuarioId,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
+        public ActionResult Edit([Bind(Include = "Id,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
         {
             if (ModelState.IsValid)
             {

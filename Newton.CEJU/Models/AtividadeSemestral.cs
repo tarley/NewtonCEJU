@@ -14,9 +14,12 @@ namespace Newton.CJU.Models
         }
         [Key]
         public int Id { get; set; }
+
         [Required]
+        [Display(Name = "Usuário")]
         public Guid UsuarioId { get; set; }
         [Required]
+        [Display(Name = "Área Conhecimento")]
         public int AreaConhecimentoId { get; set; }
 
         [Required]
