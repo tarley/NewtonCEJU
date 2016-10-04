@@ -65,7 +65,11 @@
                             <ul class="nav side-menu">
                                 @if (Request.IsAuthenticated)
                                 {
-                                    <li>@Html.ActionLink("Solicitações", "Index", "Solicitacaos")</li>
+                                    <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>
+                                    <li>@Html.ActionLink("Áreas Conhecimento", "Index", "AreasConhecimento")</li>
+                                    <li>@Html.ActionLink("Atividade Semestral", "Index", "AtividadesSemestral")</li>
+                                    <li>@Html.ActionLink("Fato Cotidiano", "Index", "FatosCotidiano")</li>
+                                    <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>
                                 }
                                 else
                                 {

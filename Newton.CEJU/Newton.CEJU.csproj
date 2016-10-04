@@ -152,6 +152,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AreasConhecimentoController.cs" />
+    <Compile Include="Controllers\AtividadesSemestralController.cs" />
+    <Compile Include="Controllers\FatosCotidianoController.cs" />
+    <Compile Include="Controllers\SituacoesController.cs" />
     <Compile Include="Controllers\SolicitacaosController.cs" />
     <Compile Include="Models\AreaConhecimento.cs" />
     <Compile Include="Models\AtividadeSemestral.cs" />
@@ -260,6 +264,26 @@
     <Content Include="Views\Solicitacaos\Details.cshtml" />
     <Content Include="Views\Solicitacaos\Edit.cshtml" />
     <Content Include="Views\Solicitacaos\Index.cshtml" />
+    <Content Include="Views\AreasConhecimento\Create.cshtml" />
+    <Content Include="Views\AreasConhecimento\Delete.cshtml" />
+    <Content Include="Views\AreasConhecimento\Details.cshtml" />
+    <Content Include="Views\AreasConhecimento\Edit.cshtml" />
+    <Content Include="Views\AreasConhecimento\Index.cshtml" />
+    <Content Include="Views\AtividadesSemestral\Create.cshtml" />
+    <Content Include="Views\AtividadesSemestral\Delete.cshtml" />
+    <Content Include="Views\AtividadesSemestral\Details.cshtml" />
+    <Content Include="Views\AtividadesSemestral\Edit.cshtml" />
+    <Content Include="Views\AtividadesSemestral\Index.cshtml" />
+    <Content Include="Views\FatosCotidiano\Create.cshtml" />
+    <Content Include="Views\FatosCotidiano\Delete.cshtml" />
+    <Content Include="Views\FatosCotidiano\Details.cshtml" />
+    <Content Include="Views\FatosCotidiano\Edit.cshtml" />
+    <Content Include="Views\FatosCotidiano\Index.cshtml" />
+    <Content Include="Views\Situacoes\Create.cshtml" />
+    <Content Include="Views\Situacoes\Delete.cshtml" />
+    <Content Include="Views\Situacoes\Details.cshtml" />
+    <Content Include="Views\Situacoes\Edit.cshtml" />
+    <Content Include="Views\Situacoes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
