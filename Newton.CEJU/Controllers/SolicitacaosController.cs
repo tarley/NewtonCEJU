@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Newton.CJU.Controllers
 {
@@ -40,9 +41,10 @@ namespace Newton.CJU.Controllers
         // GET: Solicitacaos/Create
         public ActionResult Create()
         {
-            ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Id");
-            ViewBag.HistoricoId = new SelectList(db.Historicos, "Id", "Id");
-            ViewBag.SituacaoId = new SelectList(db.Situacoes, "Id", "Nome");
+            ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Ano");
+            ViewBag.FatoCotidiano = new SelectList(db.FatosCotidiano, "Id", "Nome");
+            //ViewBag.HistoricoId = new SelectList(db.Historicos, "Id", "Id");
+            //ViewBag.SituacaoId = new SelectList(db.Situacoes, "Id", "Nome");
             return View();
         }
 
@@ -55,6 +57,10 @@ namespace Newton.CJU.Controllers
         {
             if (ModelState.IsValid)
             {
+                solicitacao.DataCadastro = DateTime.Now;
+                solicitacao.SituacaoId = 1;
+                solicitacao.UsuarioId = new Guid(User.Identity.GetUserId());
+
                 db.Solicitacaos.Add(solicitacao);
                 db.SaveChanges();
                 return RedirectToAction("Index");

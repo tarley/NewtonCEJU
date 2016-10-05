@@ -12,8 +12,8 @@ namespace Newton.CJU.Models
         public int Id { get; set; }
         [Required]
         public int SituacaoId { get; set; }
-        [Required]
-        public int HistoricoId { get; set; }
+        
+        public int? HistoricoId { get; set; }
         [Required]
         public Guid UsuarioId { get; set; }
         [Required]
