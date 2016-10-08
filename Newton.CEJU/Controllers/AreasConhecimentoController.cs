@@ -11,6 +11,7 @@ using Newton.CJU.Models;
 
 namespace Newton.CJU.Controllers
 {
+    [Authorize(Roles = "Professor, Monitor")]
     public class AreasConhecimentoController : Controller
     {
         private CJUContext db = new CJUContext();
@@ -37,11 +38,12 @@ namespace Newton.CJU.Controllers
         }
 
         // GET: AreasConhecimento/Create
+        [Authorize(Roles = "Professor")]
         public ActionResult Create()
         {
             return View();
         }
-
+    
         // POST: AreasConhecimento/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
