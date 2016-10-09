@@ -64,42 +64,38 @@
                             <h3>Menu</h3>
                             <ul class="nav side-menu">
 
-
-                            <!-- Menu Professor -->
-                            @if (User.IsInRole("Professor"))
-                            {
-                                <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>                                   
-                                <li>@Html.ActionLink("Áreas Conhecimento", "Index", "AreasConhecimento")</li>
-                                <li>@Html.ActionLink("Atividade Semestral", "Index", "AtividadesSemestral")</li>
-                                <li>@Html.ActionLink("Fato Cotidiano", "Index", "FatosCotidiano")</li>
-                                <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>                                
-                            }
-                            else
-                            {
-                                <!-- Menu Monitor -->
-                                if (User.IsInRole("Monitor"))
+                                @if (Request.IsAuthenticated)
                                 {
-                                    <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>                                   
-                                    <li>@Html.ActionLink("Áreas Conhecimento", "Index", "AreasConhecimento")</li>
-                                    <li>@Html.ActionLink("Atividade Semestral", "Index", "AtividadesSemestral")</li>
-                                    <li>@Html.ActionLink("Fato Cotidiano", "Index", "FatosCotidiano")</li>
-                                    <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>                                
-                                }
-                                else
-                                {
+                                    <!-- Menu Professor -->
+                                    if (User.IsInRole("Professor"))
+                                    {
+                                        <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>
+                                        <li>@Html.ActionLink("Áreas Conhecimento", "Index", "AreasConhecimento")</li>
+                                        <li>@Html.ActionLink("Atividade Semestral", "Index", "AtividadesSemestral")</li>
+                                        <li>@Html.ActionLink("Fato Cotidiano", "Index", "FatosCotidiano")</li>
+                                        <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>
+                                    }
+                                    <!-- Menu Monitor -->
+                                    if (User.IsInRole("Monitor"))
+                                    {
+                                        <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>
+                                        <li>@Html.ActionLink("Áreas Conhecimento", "Index", "AreasConhecimento")</li>
+                                        <li>@Html.ActionLink("Atividade Semestral", "Index", "AtividadesSemestral")</li>
+                                        <li>@Html.ActionLink("Fato Cotidiano", "Index", "FatosCotidiano")</li>
+                                        <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>
+                                    }
                                     <!-- Menu Clienter -->
                                     if (User.IsInRole("Cliente"))
                                     {
-                                        <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>                                   
-                                        <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>                                
-                                    }
-                                    else
-                                    {
-                                        <li>@Html.ActionLink("Registrar-se", "Register", "Autenticacao", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                                        <li>@Html.ActionLink("Logar", "Login", "Autenticacao", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                        <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>
+                                        <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>
                                     }
                                 }
-                            }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Registrar-se", "Register", "Autenticacao", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li>@Html.ActionLink("Logar", "Login", "Autenticacao", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -108,6 +104,8 @@
                     <div class="sidebar-footer hidden-small">
                         @if (Request.IsAuthenticated)
                         {
+
+
                             <a data-toggle="tooltip" data-placement="top" title="Settings">
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </a>
@@ -117,9 +115,13 @@
                             <a data-toggle="tooltip" data-placement="top" title="Lock">
                                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                             </a>
-                            <a data-toggle="tooltip" data-placement="top" title="Logout">
-                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                            </a>
+                            using (Html.BeginForm("Sair", "Autenticacao", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()" data-toggle="tooltip" data-placement="top" title="Logout">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                                </a>
+                            }
                         }
                     </div>
                     <!-- /menu footer buttons -->

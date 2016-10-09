@@ -17,6 +17,7 @@ namespace Newton.CJU.Controllers
         private CJUContext db = new CJUContext();
 
         // GET: Solicitacaos
+        [Authorize(Roles = "Cliente, Professor, Monitor")]
         public ActionResult Index()
         {
             var solicitacaos = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico).Include(s => s.Situacao);
@@ -24,6 +25,7 @@ namespace Newton.CJU.Controllers
         }
 
         // GET: Solicitacaos/Details/5
+        [Authorize(Roles = "Cliente, Professor, Monitor")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace Newton.CJU.Controllers
         }
 
         // GET: Solicitacaos/Create
+        [Authorize(Roles = "Cliente")]
         public ActionResult Create()
         {
             ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Ano");
@@ -53,6 +56,7 @@ namespace Newton.CJU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Cliente")]
         public ActionResult Create([Bind(Include = "Id,SituacaoId,HistoricoId,UsuarioId,AtividadeSemestralId,DataCadastro,Duvida,Parecer,FatoJuridico,Fundamentacao,IdentificacaoPartes,Descricao,Correcao")] Solicitacao solicitacao)
         {
             if (ModelState.IsValid)
@@ -73,6 +77,7 @@ namespace Newton.CJU.Controllers
         }
 
         // GET: Solicitacaos/Edit/5
+        [Authorize(Roles = "Professor, Monitor")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +100,7 @@ namespace Newton.CJU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Professor, Monitor")]
         public ActionResult Edit([Bind(Include = "Id,SituacaoId,HistoricoId,UsuarioId,AtividadeSemestralId,DataCadastro,Duvida,Parecer,FatoJuridico,Fundamentacao,IdentificacaoPartes,Descricao,Correcao")] Solicitacao solicitacao)
         {
             if (ModelState.IsValid)
@@ -110,6 +116,7 @@ namespace Newton.CJU.Controllers
         }
 
         // GET: Solicitacaos/Delete/5
+        [Authorize(Roles = "Professor")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,6 +134,7 @@ namespace Newton.CJU.Controllers
         // POST: Solicitacaos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Professor")]
         public ActionResult DeleteConfirmed(int id)
         {
             Solicitacao solicitacao = db.Solicitacaos.Find(id);
