@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Newton.CJU.Controllers
 {
+    [Authorize]
     public class AtividadesSemestralController : Controller
     {
         private CJUContext db = new CJUContext();
@@ -43,7 +44,7 @@ namespace Newton.CJU.Controllers
         }
 
         // GET: AtividadesSemestral/Create
-        [Authorize(Roles = "Professor")]
+        //[Authorize(Roles = "Professor")]
         public ActionResult Create()
         {
             ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome");

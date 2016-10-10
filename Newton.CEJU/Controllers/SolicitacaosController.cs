@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
 using Microsoft.AspNet.Identity;
+using Newton.CJU.ViewModel;
+using System.Data.Entity.Validation;
 
 namespace Newton.CJU.Controllers
 {
@@ -44,11 +46,9 @@ namespace Newton.CJU.Controllers
         [Authorize(Roles = "Cliente")]
         public ActionResult Create()
         {
-            ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Ano");
-            ViewBag.FatoCotidiano = new SelectList(db.FatosCotidiano, "Id", "Nome");
-            //ViewBag.HistoricoId = new SelectList(db.Historicos, "Id", "Id");
-            //ViewBag.SituacaoId = new SelectList(db.Situacoes, "Id", "Nome");
-            return View();
+            SolicitacaoViewModel v_SolicitacaoViewModel = new SolicitacaoViewModel();
+            v_SolicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
+            return View(v_SolicitacaoViewModel);
         }
 
         // POST: Solicitacaos/Create
@@ -57,23 +57,51 @@ namespace Newton.CJU.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Cliente")]
-        public ActionResult Create([Bind(Include = "Id,SituacaoId,HistoricoId,UsuarioId,AtividadeSemestralId,DataCadastro,Duvida,Parecer,FatoJuridico,Fundamentacao,IdentificacaoPartes,Descricao,Correcao")] Solicitacao solicitacao)
+        public ActionResult Create(SolicitacaoViewModel solicitacaoViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                solicitacao.DataCadastro = DateTime.Now;
-                solicitacao.SituacaoId = 1;
-                solicitacao.UsuarioId = new Guid(User.Identity.GetUserId());
+                if (ModelState.IsValid)
+                {
+                    AtividadeSemestral v_AtividadeSemestral = db.AtividadesSemestrais.Where(p => p.AreaConhecimento.FatoCotidiano.Any(o => o.Id == solicitacaoViewModel.IdFatoCotidiano)).FirstOrDefault();
+                    FatoCotidiano v_FatoCotidiano = db.FatosCotidiano.Where(p => p.Id == solicitacaoViewModel.IdFatoCotidiano).FirstOrDefault();
+                    Situacao v_Situacao = db.Situacoes.FirstOrDefault();
 
-                db.Solicitacaos.Add(solicitacao);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    Solicitacao v_Solicitacao = new Solicitacao()
+                    {
+                        AtividadeSemestralId =
+                            v_AtividadeSemestral.Id,
+                        FatoJuridico = v_FatoCotidiano.Nome,
+                        DataCadastro = DateTime.Now,
+                        SituacaoId = v_Situacao.Id,
+                        UsuarioId = new Guid(User.Identity.GetUserId()),
+                        Descricao = solicitacaoViewModel.Descricao,
+                        Duvida = solicitacaoViewModel.Duvida,
+                        IdentificacaoPartes = solicitacaoViewModel.IdentificacaoPartes
+                    };
+
+                    db.Solicitacaos.Add(v_Solicitacao);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
 
-            ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Id", solicitacao.AtividadeSemestralId);
-            ViewBag.HistoricoId = new SelectList(db.Historicos, "Id", "Id", solicitacao.HistoricoId);
-            ViewBag.SituacaoId = new SelectList(db.Situacoes, "Id", "Nome", solicitacao.SituacaoId);
-            return View(solicitacao);
+            return View(solicitacaoViewModel);
+          
         }
 
         // GET: Solicitacaos/Edit/5

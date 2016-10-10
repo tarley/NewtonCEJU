@@ -165,6 +165,7 @@
     <Compile Include="Models\Situacao.cs" />
     <Compile Include="Models\Solicitacao.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\SolicitacaoViewModel.cs" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
