@@ -63,15 +63,28 @@ namespace Newton.CJU.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    AtividadeSemestral v_AtividadeSemestral = db.AtividadesSemestrais.Where(p => p.AreaConhecimento.FatoCotidiano.Any(o => o.Id == solicitacaoViewModel.IdFatoCotidiano)).FirstOrDefault();
-                    FatoCotidiano v_FatoCotidiano = db.FatosCotidiano.Where(p => p.Id == solicitacaoViewModel.IdFatoCotidiano).FirstOrDefault();
+                    AtividadeSemestral v_AtividadeSemestral = 
+                        db.AtividadesSemestrais.Where(p => p.AreaConhecimento.FatoCotidiano.Any(o => o.Id == solicitacaoViewModel.IdFatoCotidiano) && p.Ativo).FirstOrDefault();
                     Situacao v_Situacao = db.Situacoes.FirstOrDefault();
+
+                    if(v_AtividadeSemestral == null)
+                    {
+                        solicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
+                        ModelState.AddModelError("", "Não existe atividade semestral ativa para o Tipo de Assunto selecionado.");
+                        return View(solicitacaoViewModel);
+                    }
+
+                    if (v_Situacao == null)
+                    {
+                        solicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
+                        ModelState.AddModelError("", "Não existe Situação cadastrada.");
+                        return View(solicitacaoViewModel);
+                    }
 
                     Solicitacao v_Solicitacao = new Solicitacao()
                     {
                         AtividadeSemestralId =
                             v_AtividadeSemestral.Id,
-                        FatoJuridico = v_FatoCotidiano.Nome,
                         DataCadastro = DateTime.Now,
                         SituacaoId = v_Situacao.Id,
                         UsuarioId = new Guid(User.Identity.GetUserId()),

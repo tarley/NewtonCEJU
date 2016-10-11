@@ -29,8 +29,6 @@ namespace Newton.CJU.Models
         public string Duvida { get; set; }
         public string Parecer { get; set; }
 
-        [DisplayName("Escolha o tipo de assunto")]
-        [Required(ErrorMessage = "Seleção do assunto é obrigatória!")]
         public string FatoJuridico { get; set; }
         public string Fundamentacao { get; set; }
 
