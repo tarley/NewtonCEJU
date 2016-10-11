@@ -155,6 +155,8 @@
     <Compile Include="Controllers\AreasConhecimentoController.cs" />
     <Compile Include="Controllers\AtividadesSemestralController.cs" />
     <Compile Include="Controllers\FatosCotidianoController.cs" />
+    <Compile Include="Controllers\MonitorController.cs" />
+    <Compile Include="Controllers\ProfessorController.cs" />
     <Compile Include="Controllers\SituacoesController.cs" />
     <Compile Include="Controllers\SolicitacaosController.cs" />
     <Compile Include="Models\AreaConhecimento.cs" />
@@ -165,6 +167,8 @@
     <Compile Include="Models\Situacao.cs" />
     <Compile Include="Models\Solicitacao.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\MonitorViewModel.cs" />
+    <Compile Include="ViewModel\ProfessorViewModel.cs" />
     <Compile Include="ViewModel\SolicitacaoViewModel.cs" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -285,6 +289,16 @@
     <Content Include="Views\Situacoes\Details.cshtml" />
     <Content Include="Views\Situacoes\Edit.cshtml" />
     <Content Include="Views\Situacoes\Index.cshtml" />
+    <Content Include="Views\Professor\Create.cshtml" />
+    <Content Include="Views\Professor\Delete.cshtml" />
+    <Content Include="Views\Professor\Details.cshtml" />
+    <Content Include="Views\Professor\Edit.cshtml" />
+    <Content Include="Views\Professor\Index.cshtml" />
+    <Content Include="Views\Monitor\Create.cshtml" />
+    <Content Include="Views\Monitor\Delete.cshtml" />
+    <Content Include="Views\Monitor\Details.cshtml" />
+    <Content Include="Views\Monitor\Edit.cshtml" />
+    <Content Include="Views\Monitor\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -57,21 +57,13 @@ namespace Newton.CJU
                 var role = new IdentityRole();
                 role.Name = "Monitor";
                 roleManager.Create(role);
+            }
 
-                var user = new Usuario();
-                user.UserName = "monitor@gmail.com";
-                user.Email = "monitor@gmail.com";
-
-                string userPWD = "teste123";
-
-                var chkUser = UserManager.Create(user, userPWD);
-
-                //Add default User to Role Admin   
-                if (chkUser.Succeeded)
-                {
-                    var result1 = UserManager.AddToRole(user.Id, "Monitor");
-                }
-
+            if (!roleManager.RoleExists("Cliente"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Cliente";
+                roleManager.Create(role);
             }
 
             if (!roleManager.RoleExists("Professor"))
@@ -81,23 +73,17 @@ namespace Newton.CJU
                 roleManager.Create(role);
 
                 var user = new Usuario();
-                user.UserName = "professor@gmail.com";
-                user.Email = "professor@gmail.com";
+                user.Nome = "Valéria";
+                user.UserName = "valeria@newtonpaiva.com";
+                user.Email = "valeria@newtonpaiva.com";
 
-                string userPWD = "teste123";
+                string userPWD = "ceju2016";
 
                 var chkUser = UserManager.Create(user, userPWD);
                 if (chkUser.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Professor");
                 }
-            }
-
-            if (!roleManager.RoleExists("Cliente"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Cliente";
-                roleManager.Create(role);
             }
         }
     }

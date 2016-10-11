@@ -104,7 +104,7 @@ namespace Newton.CJU.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Usuario { UserName = model.Email, Email = model.Email };
+                var user = new Usuario { Nome = model.Nome, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Senha);
                 if (result.Succeeded)
                 {

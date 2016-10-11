@@ -19,6 +19,10 @@ namespace Newton.CJU.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
