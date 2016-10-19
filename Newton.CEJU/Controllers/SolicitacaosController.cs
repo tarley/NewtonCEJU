@@ -11,6 +11,8 @@ using Newton.CJU.Models;
 using Microsoft.AspNet.Identity;
 using Newton.CJU.ViewModel;
 using System.Data.Entity.Validation;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Newton.CJU.Controllers
 {
@@ -20,10 +22,14 @@ namespace Newton.CJU.Controllers
 
         // GET: Solicitacaos
         [Authorize(Roles = "Cliente, Professor, Monitor")]
-        public ActionResult Index()
+        public ActionResult Index(int? pagina)
         {
+            var contexto = new CadastroEntities();
             var solicitacaos = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico).Include(s => s.Situacao);
-            return View(solicitacaos.ToList());
+            int TamanhoPagina = 12;
+            int NumeroPagina= (pagina ?? 1);
+
+            return View(solicitacaos.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
         }
 
         // GET: Solicitacaos/Details/5
@@ -191,6 +197,13 @@ namespace Newton.CJU.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+    }
+
+    internal class CadastroEntities
+    {
+        public CadastroEntities()
+        {
         }
     }
 }

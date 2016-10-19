@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Newton.CJU.Models.Solicitacao>
+﻿@model PagedList.PagedList <Newton.CJU.Models.Solicitacao>
+    @using PagedList
+    @using PagedList.Mvc
+   
 
 @{
     ViewBag.Title = "Solicitações";
@@ -25,6 +28,10 @@
         </th>
 
         <th>
+            @Html.DisplayName("Monitor")
+        </th>
+
+        <th>
             @Html.DisplayName("Situação")
         </th>
 
@@ -48,6 +55,10 @@
         </td>
 
         <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+        </td>
+
+        <td>
             @Html.DisplayFor(modelItem => item.Situacao.Nome)
         </td>
 
@@ -61,3 +72,10 @@
 }
 
 </table>
+
+<div class="col-md-12">
+    <div class="text-center">
+        Página @Model.PageNumber de @Model.PageCount
+        @Html.PagedListPager(Model, Page => Url.Action("Index", new { pagina = Page}))
+    </div>
+</div>
