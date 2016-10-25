@@ -7,6 +7,12 @@
     ViewBag.Title = "Solicitações";
 }
 
+<style>
+    .cor-linha{
+        background-color: #FFFF00;
+    }
+</style>
+
 <h2>Acompanhamento Solicitação</h2>
 <br>
 <p>
@@ -38,10 +44,10 @@
        
         <th></th>
     </tr>
+@foreach (var item in Model)
+{
+    <tr @(DateTime.Now.Subtract(item.DataCadastro).Days > 7 ? "class=cor-linha" : String.Empty)>
 
-@foreach (var item in Model) {
-    <tr>
-        
         <td>
             @Html.DisplayFor(modelItem => item.Id)
         </td>
@@ -62,10 +68,10 @@
             @Html.DisplayFor(modelItem => item.Situacao.Nome)
         </td>
 
-        
+
         <td>
             <!-- @Html.ActionLink("Edit", "Edit", new { id=item.Id }) -->
-            @Html.ActionLink("Visualizar", "Details", new { id=item.Id }) 
+            @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
             <!--   @Html.ActionLink("Delete", "Delete", new { id=item.Id })-->
         </td>
     </tr>
