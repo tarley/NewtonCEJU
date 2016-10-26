@@ -32,10 +32,15 @@
         <th>
             @Html.DisplayName("Fato Juridico")
         </th>
-
-        <th>
-            @Html.DisplayName("Monitor")
-        </th>
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Professor"))
+            {
+                <th>
+                    @Html.DisplayName("Monitor")
+                </th>
+            }
+        }
 
         <th>
             @Html.DisplayName("Situação")
@@ -60,10 +65,15 @@
             @Html.DisplayFor(modelItem => item.FatoJuridico)
         </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nome)
-        </td>
-
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Professor"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.Nome)
+                </td>
+            }
+        }
         <td>
             @Html.DisplayFor(modelItem => item.Situacao.Nome)
         </td>
