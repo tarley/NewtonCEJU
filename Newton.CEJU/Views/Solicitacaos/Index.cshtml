@@ -15,9 +15,43 @@
 
 <h2>Acompanhamento Solicitação</h2>
 <br>
-<p>
-    @Html.ActionLink("Nova Solicitação", "Create")
-</p>
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Professor"))
+    {
+    <div class="row">
+        <div class="col-md-2">
+            <p>Data Inicial:</p>
+            <input type="date" class="form-control" id="datainicial" name="datainicial" value="@ViewBag.data" />
+        </div>
+        <div class="col-md-2">
+            <p>Data Final:</p>
+            <input type="date" class="form-control" id="datafinal" name="datafinal" value="@ViewBag.data" />
+        </div>
+
+        <div class="col-md-2">      
+         <p></p>   
+        <br>
+             <button type="submit"  value="pesquisar" class="btn btn-primary">Pesquisar</button>
+        </div>
+
+        <div class="col-md-3">
+        
+        </div>
+       <div class="col-md-3">
+            Situacao:
+            @Html.DropDownList("IdSituacao", new SelectList("Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+    }
+}
+
+<br>
+<div>
+    <p>
+       @Html.ActionLink("Nova Solicitação", "Create")
+    </p>
+</div>
 <table class="table">
     <tr>
         
@@ -77,13 +111,36 @@
         <td>
             @Html.DisplayFor(modelItem => item.Situacao.Nome)
         </td>
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Professor"))
+            {
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id=item.Id })
+                    @Html.DisplayName(" | ")
+                    @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+                    @Html.DisplayName(" | ")
+                    @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+                </td>
+            }
+            if (User.IsInRole("Monitor"))
+            {
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                    @Html.DisplayName(" | ")
+                    @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+                   
+                </td>
+            }
+            if (User.IsInRole("Cliente"))
+            {
 
+                <td>
+                    @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+                </td>
+            }
+        }
 
-        <td>
-            <!-- @Html.ActionLink("Edit", "Edit", new { id=item.Id }) -->
-            @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
-            <!--   @Html.ActionLink("Delete", "Delete", new { id=item.Id })-->
-        </td>
     </tr>
 }
 
