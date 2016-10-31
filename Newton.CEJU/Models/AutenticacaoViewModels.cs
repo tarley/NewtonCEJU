@@ -6,7 +6,7 @@ namespace Newton.CJU.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "E-mail")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -24,7 +24,7 @@ namespace Newton.CJU.Models
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]

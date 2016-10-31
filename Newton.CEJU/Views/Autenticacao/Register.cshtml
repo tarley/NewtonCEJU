@@ -20,7 +20,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Nome, new { @class = "col-md-4 control-label" })
         <div class="col-md-4">
-            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @placeholder = "Digite seu nome" })
         </div>
     </div>
 
@@ -28,7 +28,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
         <div class="col-md-4">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Digite seu e-mail" })
         </div>
     </div>
 
@@ -36,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Senha, new { @class = "col-md-4 control-label" })
         <div class="col-md-4">
-            @Html.PasswordFor(m => m.Senha, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Digite sua senha" })
         </div>
     </div>
 
@@ -44,7 +44,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmarSenha, new { @class = "col-md-4 control-label" })
         <div class="col-md-4">
-            @Html.PasswordFor(m => m.ConfirmarSenha, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.ConfirmarSenha, new { @class = "form-control", @placeholder = "Digite novamente sua senha" })
         </div>
     </div>
 
