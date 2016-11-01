@@ -1,13 +1,13 @@
 ﻿@model Newton.CJU.Models.AreaConhecimento
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Área de Conhecimento</h2>
 
 <div>
-    <h4>AreaConhecimento</h4>
+    
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -29,6 +29,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
 </p>
