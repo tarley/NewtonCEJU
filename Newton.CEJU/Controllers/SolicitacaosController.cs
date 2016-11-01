@@ -22,15 +22,44 @@ namespace Newton.CJU.Controllers
 
         // GET: Solicitacaos
         [Authorize(Roles = "Cliente, Professor, Monitor")]
-        public ActionResult Index(int? pagina)
+        public ActionResult Index(int? pagina, string datainicial = null , string datafinal = null)
         {
             var contexto = new CadastroEntities();
-            var solicitacaos = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico).Include(s => s.Situacao);
-            int TamanhoPagina = 12;
+            var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico).Include(s => s.Situacao);
+            int TamanhoPagina = 10;
             int NumeroPagina= (pagina ?? 1);
 
-            return View(solicitacaos.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
+            DateTime dtinicial = DateTime.MinValue;
+            DateTime dtfinal = DateTime.MaxValue;
+
+
+            if ((datainicial != null) && (datafinal != null))
+            {
+                 dtinicial = Convert.ToDateTime(datainicial);
+                 dtfinal = Convert.ToDateTime(datafinal);
+            }
+
+            if (datainicial!= null) 
+            {
+                solicitacao.Where(s => s.DataCadastro >= dtinicial);
+            }
+
+            if (datafinal != null)
+            {
+                solicitacao.Where(s => s.DataCadastro <= dtfinal);
+            }
+
+            return View(solicitacao.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
+            
         }
+
+        [HttpPost]
+        public ActionResult Pesquisa()
+        {
+            return RedirectToAction("Index");
+        }
+       
+
 
         // GET: Solicitacaos/Details/5
         [Authorize(Roles = "Cliente, Professor, Monitor")]
@@ -198,7 +227,11 @@ namespace Newton.CJU.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
+
+   
 
     internal class CadastroEntities
     {
