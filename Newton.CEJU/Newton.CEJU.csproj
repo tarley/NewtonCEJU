@@ -188,6 +188,7 @@
     <Content Include="Content\flat\green.css" />
     <Content Include="Content\flat\green.png" />
     <Content Include="Content\floatexamples.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Fonts\font-awesome.min.css" />
     <Content Include="Content\jquery-jvectormap-2.0.3.css" />
     <Content Include="Content\PagedList.css" />

@@ -15,3 +15,17 @@
     </div>
 </div>
 
+@if (TempData["mensagem"] != null)
+{
+    <div class="alert alert-success" id="sucess">
+        @TempData["mensagem"]
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#sucess').fadeOut(1500);
+        }, 3000);
+    });
+</script>   

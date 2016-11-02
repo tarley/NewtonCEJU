@@ -11,6 +11,7 @@
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Fonts/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/animate.min.css" rel="stylesheet" />
 
     <link href="~/Content/custom.css" rel="stylesheet" />
@@ -86,7 +87,7 @@
                                         <li>@Html.ActionLink("Fato Cotidiano", "Index", "FatosCotidiano")</li>
                                         <li>@Html.ActionLink("Situação", "Index", "Situacoes")</li>
                                     }
-                                    <!-- Menu Clienter -->
+                                    <!-- Menu Cliente -->
                                     if (User.IsInRole("Cliente"))
                                     {
                                         <li>@Html.ActionLink("Solicitação", "Index", "Solicitacaos")</li>
@@ -132,7 +133,6 @@
 
             <!-- top navigation -->
             <div class="top_nav">
-
                 <div class="nav_menu">
                     <nav class="" role="navigation">
                         <div class="nav toggle">

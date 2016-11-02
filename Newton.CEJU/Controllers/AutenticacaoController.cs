@@ -108,14 +108,16 @@ namespace Newton.CJU.Controllers
                 var result = await UserManager.CreateAsync(user, model.Senha);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     UserManager.AddToRole(user.Id, "Cliente");
-
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    
                     // For more information on how to enable Autenticacao confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Autenticacao", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your Autenticacao", "Please confirm your Autenticacao by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    TempData["mensagem"] = "Cadastro realizado com sucesso!";
 
                     return RedirectToAction("Index", "Home");
                 }
