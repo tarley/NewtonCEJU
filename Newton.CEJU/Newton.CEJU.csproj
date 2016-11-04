@@ -170,6 +170,7 @@
     <Compile Include="Models\AreaConhecimento.cs" />
     <Compile Include="Models\AtividadeSemestral.cs" />
     <Compile Include="Models\AutenticacaoViewModels.cs" />
+    <Compile Include="Models\Enum\SituacaoEnum.cs" />
     <Compile Include="Models\FatoCotidiano.cs" />
     <Compile Include="Models\Historico.cs" />
     <Compile Include="Models\Situacao.cs" />

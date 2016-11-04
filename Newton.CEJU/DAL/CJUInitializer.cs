@@ -11,17 +11,7 @@ namespace Newton.CJU.DAL
     {
         protected override void Seed(CJUContext context)
         {
-           /*
-            var situacoes = new List<Situacao>
-            {
-                new Situacao {Id = 1, Nome = "Criada" },
-                new Situacao {Id = 1, Nome = "Em Analise" },
-                new Situacao {Id = 1, Nome = "Respondida" }
-            };
-
-            context.Situacoes.AddRange(situacoes);
-            context.SaveChanges();
-            */
+           
         }
     }
 }

@@ -112,12 +112,12 @@
             if (User.IsInRole("Professor"))
             {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.Nome)
+                    @Html.DisplayFor(modelItem => item.UsuarioCliente.Nome)
                 </td>
             }
         }
         <td>
-            @Html.DisplayFor(modelItem => item.Situacao.Nome)
+            @Html.DisplayFor(modelItem => item.Situacao)
         </td>
         @if (Request.IsAuthenticated)
         {

@@ -13,6 +13,7 @@ using Newton.CJU.ViewModel;
 using System.Data.Entity.Validation;
 using PagedList;
 using PagedList.Mvc;
+using Newton.CJU.Models.Enum;
 
 namespace Newton.CJU.Controllers
 {
@@ -121,8 +122,8 @@ namespace Newton.CJU.Controllers
                         AtividadeSemestralId =
                             v_AtividadeSemestral.Id,
                         DataCadastro = DateTime.Now,
-                        SituacaoId = v_Situacao.Id,
-                        UsuarioId = new Guid(User.Identity.GetUserId()),
+                        Situacao = SituacaoEnum.Criado,
+                        UsuarioClienteId = new Guid(User.Identity.GetUserId()),
                         Descricao = solicitacaoViewModel.Descricao,
                         Duvida = solicitacaoViewModel.Duvida,
                         IdentificacaoPartes = solicitacaoViewModel.IdentificacaoPartes
@@ -166,8 +167,6 @@ namespace Newton.CJU.Controllers
                 return HttpNotFound();
             }
             ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Id", solicitacao.AtividadeSemestralId);
-            ViewBag.HistoricoId = new SelectList(db.Historicos, "Id", "Id", solicitacao.HistoricoId);
-            ViewBag.SituacaoId = new SelectList(db.Situacoes, "Id", "Nome", solicitacao.SituacaoId);
             return View(solicitacao);
         }
 
@@ -177,7 +176,7 @@ namespace Newton.CJU.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Professor, Monitor")]
-        public ActionResult Edit([Bind(Include = "Id,SituacaoId,HistoricoId,UsuarioId,AtividadeSemestralId,DataCadastro,Duvida,Parecer,FatoJuridico,Fundamentacao,IdentificacaoPartes,Descricao,Correcao")] Solicitacao solicitacao)
+        public ActionResult Edit([Bind(Include = "Id,Situacao,HistoricoId,UsuarioId,AtividadeSemestralId,DataCadastro,Duvida,Parecer,FatoJuridico,Fundamentacao,IdentificacaoPartes,Descricao,Correcao")] Solicitacao solicitacao)
         {
             if (ModelState.IsValid)
             {
@@ -186,8 +185,6 @@ namespace Newton.CJU.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Id", solicitacao.AtividadeSemestralId);
-            ViewBag.HistoricoId = new SelectList(db.Historicos, "Id", "Id", solicitacao.HistoricoId);
-            ViewBag.SituacaoId = new SelectList(db.Situacoes, "Id", "Nome", solicitacao.SituacaoId);
             return View(solicitacao);
         }
 

@@ -17,26 +17,18 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SituacaoId, "SituacaoId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Situacao, "Situacao", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SituacaoId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SituacaoId, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.Situacao, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HistoricoId, "HistoricoId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UsuarioClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("HistoricoId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HistoricoId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UsuarioId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UsuarioId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UsuarioId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.UsuarioClienteId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UsuarioClienteId, "", new { @class = "text-danger" })
             </div>
         </div>
 

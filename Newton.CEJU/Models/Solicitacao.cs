@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newton.CJU.Models.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,16 +11,22 @@ namespace Newton.CJU.Models
 {
     public class Solicitacao
     {
+        public Solicitacao()
+        {
+            this.Historico = new HashSet<Historico>();
+        }
+
         [Key]
         public int Id { get; set; }
         [Required]
-        public int SituacaoId { get; set; }
-        
-        public int? HistoricoId { get; set; }
+        public SituacaoEnum Situacao { get; set; }
         [Required]
-        public Guid UsuarioId { get; set; }
+        public Guid UsuarioClienteId { get; set; }
+        public Guid? UsuarioAlunoId { get; set; }
         [Required]
         public int AtividadeSemestralId { get; set; }
+
+        public int FatoCotidianoId { get; set; }
 
         [Required]
         public DateTime DataCadastro { get; set; }
@@ -43,9 +51,13 @@ namespace Newton.CJU.Models
         public string Descricao { get; set; }
         public string Correcao { get; set; }
 
-        public virtual Situacao Situacao { get; set; }
-        public virtual Historico Historico { get; set; }
-        public virtual Usuario Usuario { get; set; }
+       // [ForeignKey("UsuarioClienteId")]
+        public virtual Usuario UsuarioCliente { get; set; }
+        public virtual FatoCotidiano FatoCotidiano { get; set; }
+      //  [ForeignKey("UsuarioAlunoId")]
+        public virtual Usuario UsuarioAluno { get; set; }
+
+        public virtual ICollection<Historico> Historico { get; set; }
         public virtual AtividadeSemestral AtividadeSemestral { get; set; }
     }
 }
