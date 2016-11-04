@@ -14,6 +14,7 @@ using System.Data.Entity.Validation;
 using PagedList;
 using PagedList.Mvc;
 using Newton.CJU.Models.Enum;
+using System.Web.UI.WebControls;
 
 namespace Newton.CJU.Controllers
 {
@@ -23,33 +24,26 @@ namespace Newton.CJU.Controllers
 
         // GET: Solicitacaos
         [Authorize(Roles = "Cliente, Professor, Monitor")]
-        public ActionResult Index(int? pagina, string datainicial = null , string datafinal = null)
+        public ActionResult Index(int? pagina, string datainicial = null, string datafinal = null)
         {
             var contexto = new CadastroEntities();
             var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico).Include(s => s.Situacao);
             int TamanhoPagina = 10;
             int NumeroPagina= (pagina ?? 1);
-
-            DateTime dtinicial = DateTime.MinValue;
-            DateTime dtfinal = DateTime.MaxValue;
-
-
-            if ((datainicial != null) && (datafinal != null))
+            
+            if (!string.IsNullOrEmpty(datainicial)) 
             {
-                 dtinicial = Convert.ToDateTime(datainicial);
-                 dtfinal = Convert.ToDateTime(datafinal);
+                DateTime dtinicio;
+                if(DateTime.TryParse(datainicial,out dtinicio))
+                    solicitacao.Where(s => s.DataCadastro >= dtinicio);
             }
 
-            if (datainicial!= null) 
+            if (!string.IsNullOrEmpty(datafinal))
             {
-                solicitacao.Where(s => s.DataCadastro >= dtinicial);
+                DateTime dtfim;
+                if (DateTime.TryParse(datafinal, out dtfim))
+                    solicitacao.Where(s => s.DataCadastro <= dtfim);
             }
-
-            if (datafinal != null)
-            {
-                solicitacao.Where(s => s.DataCadastro <= dtfinal);
-            }
-
             return View(solicitacao.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
             
         }
