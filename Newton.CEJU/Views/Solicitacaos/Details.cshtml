@@ -32,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Situacao.Nome)
+            @Html.DisplayFor(model => model.Situacao)
         </dd>
 
         @if (Request.IsAuthenticated)
@@ -44,7 +44,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Usuario.Nome)
+                    @Html.DisplayFor(model => model.AtividadeSemestral.Usuario.Nome)
                 </dd>
 
                 <dt>

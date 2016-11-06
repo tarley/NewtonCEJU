@@ -27,7 +27,7 @@ namespace Newton.CJU.Controllers
         public ActionResult Index(int? pagina, string datainicial = null, string datafinal = null)
         {
             var contexto = new CadastroEntities();
-            var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico).Include(s => s.Situacao);
+            var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico);
             int TamanhoPagina = 10;
             int NumeroPagina= (pagina ?? 1);
             
@@ -96,6 +96,7 @@ namespace Newton.CJU.Controllers
                     AtividadeSemestral v_AtividadeSemestral = 
                         db.AtividadesSemestrais.Where(p => p.AreaConhecimento.FatoCotidiano.Any(o => o.Id == solicitacaoViewModel.IdFatoCotidiano) && p.Ativo).FirstOrDefault();
                     Situacao v_Situacao = db.Situacoes.FirstOrDefault();
+                    FatoCotidiano v_FatoCotidiano = db.FatosCotidiano.Where(p => p.Id == solicitacaoViewModel.IdFatoCotidiano).FirstOrDefault();
 
                     if(v_AtividadeSemestral == null)
                     {
@@ -120,7 +121,8 @@ namespace Newton.CJU.Controllers
                         UsuarioClienteId = new Guid(User.Identity.GetUserId()),
                         Descricao = solicitacaoViewModel.Descricao,
                         Duvida = solicitacaoViewModel.Duvida,
-                        IdentificacaoPartes = solicitacaoViewModel.IdentificacaoPartes
+                        IdentificacaoPartes = solicitacaoViewModel.IdentificacaoPartes,
+                        FatoCotidianoId = solicitacaoViewModel.IdFatoCotidiano
                     };
 
                     db.Solicitacaos.Add(v_Solicitacao);
