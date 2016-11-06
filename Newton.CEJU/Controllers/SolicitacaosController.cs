@@ -44,6 +44,20 @@ namespace Newton.CJU.Controllers
                 if (DateTime.TryParse(datafinal, out dtfim))
                     solicitacao.Where(s => s.DataCadastro <= dtfim);
             }
+
+            var idusuariologado = User.Identity.GetUserId();
+            if (User.IsInRole("Cliente"))
+            {
+                
+                solicitacao.Where(s => s.UsuarioClienteId.Equals(idusuariologado));
+            }
+
+            if (User.IsInRole("Monitor"))
+            {
+
+                solicitacao.Where(s => s.UsuarioAlunoId.Equals(idusuariologado));
+            }
+
             return View(solicitacao.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
             
         }
