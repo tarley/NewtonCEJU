@@ -44,15 +44,19 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.AtividadeSemestral.Usuario.Nome)
+                    @Html.DisplayFor(model => model.UsuarioAluno.Nome)
                 </dd>
 
+
+            }
+            if ((User.IsInRole("Professor")) || (User.IsInRole("Monitor")))
+            {
                 <dt>
                     @Html.DisplayName("Atividade Semestral")
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.AtividadeSemestral.Semestre), @Html.DisplayFor(model => model.AtividadeSemestral.Ano), @Html.DisplayFor(model => model.AtividadeSemestral.AreaConhecimento.Nome)
+                     @Html.DisplayFor(model => model.AtividadeSemestral.AreaConhecimento.Nome)
                 </dd>
 
             }
@@ -63,7 +67,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FatoJuridico)
+            @Html.DisplayFor(model => model.FatoCotidiano.Nome)
         </dd>
 
         <dt>

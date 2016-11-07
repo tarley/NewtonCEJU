@@ -48,8 +48,7 @@
                     </div>
                     <div class="col-md-3">
                         Situacao:
-                        @*@Html.DropDownList("IdSituacao", new SelectList("Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })*@
-
+                        @*@Html.DropDownList("IdSituacao", new SelectList("Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })*@       
                         @Html.DropDownList("FeedType", (SelectList)ViewBag.FeedTypeList)
                     </div>
                 }
@@ -76,13 +75,31 @@
             @Html.DisplayName("Data de Cadastro")
         </th>
 
-        <th>
-            @Html.DisplayName("Fato Juridico")
-        </th>
+        
         @if (Request.IsAuthenticated)
         {
+            if (User.IsInRole("Cliente"))
+            {
+                <th>
+                    @Html.DisplayName("Fato Juridico")
+                </th>
+
+            }
+
+            if (User.IsInRole("Monitor"))
+            {
+                <th>
+                    @Html.DisplayName("Atividade Semestral")
+                </th>
+
+            }
+
             if (User.IsInRole("Professor"))
             {
+                <th>
+                    @Html.DisplayName("Atividade Semestral")
+                </th>
+               
                 <th>
                     @Html.DisplayName("Monitor")
                 </th>
@@ -108,16 +125,30 @@
                 @Html.DisplayFor(modelItem => item.DataCadastro)
             </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.FatoJuridico)
-            </td>
 
             @if (Request.IsAuthenticated)
             {
+                if (User.IsInRole("Cliente"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FatoCotidiano.Nome)
+                    </td>
+                }
+
+                if (User.IsInRole("Monitor"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AtividadeSemestral.AreaConhecimento.Nome)
+                    </td>
+                }
                 if (User.IsInRole("Professor"))
                 {
                     <td>
-                        @Html.DisplayFor(modelItem => item.UsuarioCliente.Nome)
+                        @Html.DisplayFor(modelItem => item.AtividadeSemestral.AreaConhecimento.Nome)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioAluno.Nome)
                     </td>
                 }
             }
