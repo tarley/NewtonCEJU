@@ -162,8 +162,19 @@ namespace Newton.CJU.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Id", solicitacao.AtividadeSemestralId);
-            return View(solicitacao);
+
+            SolicitacaoEdicaoViewModel v_SolicitacaoEdicaoViewModel = new SolicitacaoEdicaoViewModel()
+            {
+                Id = id.Value,
+                FatoCotidiano = solicitacao.FatoCotidiano.Nome,
+                IdentificacaoPartes = solicitacao.IdentificacaoPartes,
+                Situacao = solicitacao.Situacao,
+                DataCadastro = solicitacao.DataCadastro,
+                Duvida = solicitacao.Duvida,
+                Descricao = solicitacao.Descricao
+            };
+            
+            return View(v_SolicitacaoEdicaoViewModel);
         }
 
         // POST: Solicitacaos/Edit/5
@@ -172,16 +183,30 @@ namespace Newton.CJU.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Professor, Monitor")]
-        public ActionResult Edit([Bind(Include = "Id,Situacao,HistoricoId,UsuarioId,AtividadeSemestralId,DataCadastro,Duvida,Parecer,FatoJuridico,Fundamentacao,IdentificacaoPartes,Descricao,Correcao")] Solicitacao solicitacao)
+        public ActionResult Edit(SolicitacaoEdicaoViewModel p_SolicitacaoEdicaoViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(solicitacao).State = EntityState.Modified;
+                Solicitacao v_Solicitacao = db.Solicitacaos.Find(p_SolicitacaoEdicaoViewModel.Id);
+                v_Solicitacao.Fundamentacao = p_SolicitacaoEdicaoViewModel.Fundamentacao;
+                v_Solicitacao.Parecer = p_SolicitacaoEdicaoViewModel.Parecer;
+                v_Solicitacao.Correcao = p_SolicitacaoEdicaoViewModel.Correcao;
+
+                if (Request.Form["EnviarAluno"] != null)
+                {
+
+                }
+                else if (Request.Form["EnviarCliente"] != null)
+                {
+                    v_Solicitacao.Situacao = SituacaoEnum.Respondido;
+                }
+
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AtividadeSemestralId = new SelectList(db.AtividadesSemestrais, "Id", "Id", solicitacao.AtividadeSemestralId);
-            return View(solicitacao);
+            
+            return View(p_SolicitacaoEdicaoViewModel);
         }
 
         // GET: Solicitacaos/Delete/5
