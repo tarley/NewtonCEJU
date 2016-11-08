@@ -198,7 +198,7 @@ namespace Newton.CJU.Controllers
                     else if (Request.Form["EnviarCliente"] != null)
                     {
                         v_Solicitacao.Situacao = SituacaoEnum.Respondido;
-                        v_Solicitacao.UsuarioAluno = null;
+                        v_Solicitacao.UsuarioAlunoId = null;
                     }
 
                     db.SaveChanges();
