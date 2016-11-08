@@ -20,9 +20,7 @@ namespace Newton.CJU.Models
         public int Id { get; set; }
         [Required]
         public SituacaoEnum Situacao { get; set; }
-        [Required]
-        public Guid UsuarioClienteId { get; set; }
-        public Guid? UsuarioAlunoId { get; set; }
+
         [Required]
         public int AtividadeSemestralId { get; set; }
 
@@ -51,10 +49,11 @@ namespace Newton.CJU.Models
         public string Descricao { get; set; }
         public string Correcao { get; set; }
 
-       // [ForeignKey("UsuarioClienteId")]
+        // [ForeignKey("UsuarioClienteId")]
+        [Required]
         public virtual Usuario UsuarioCliente { get; set; }
         public virtual FatoCotidiano FatoCotidiano { get; set; }
-      //  [ForeignKey("UsuarioAlunoId")]
+        //  [ForeignKey("UsuarioAlunoId")]
         public virtual Usuario UsuarioAluno { get; set; }
 
         public virtual ICollection<Historico> Historico { get; set; }

@@ -1,4 +1,5 @@
-﻿using Newton.CJU.Models.Enum;
+﻿using Newton.CJU.Models;
+using Newton.CJU.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +41,9 @@ namespace Newton.CJU.ViewModel
         [DisplayName("Correção")]
         public string Correcao { get; set; }
 
-        //public List<FatoCotidiano> FatosCotidianos { get; set; }
+        [DisplayName("Monitor")]
+        public string GuidMonitor { get; set; }
+
+        public List<Usuario> Monitores { get; set; }
     }
 }

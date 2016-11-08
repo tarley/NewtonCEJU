@@ -15,6 +15,7 @@ using PagedList;
 using PagedList.Mvc;
 using Newton.CJU.Models.Enum;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Newton.CJU.Controllers
 {
@@ -29,12 +30,12 @@ namespace Newton.CJU.Controllers
             var contexto = new CadastroEntities();
             var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico);
             int TamanhoPagina = 10;
-            int NumeroPagina= (pagina ?? 1);
-            
-            if (!string.IsNullOrEmpty(datainicial)) 
+            int NumeroPagina = (pagina ?? 1);
+
+            if (!string.IsNullOrEmpty(datainicial))
             {
                 DateTime dtinicio;
-                if(DateTime.TryParse(datainicial,out dtinicio))
+                if (DateTime.TryParse(datainicial, out dtinicio))
                     solicitacao.Where(s => s.DataCadastro >= dtinicio);
             }
 
@@ -48,18 +49,16 @@ namespace Newton.CJU.Controllers
             var idusuariologado = User.Identity.GetUserId();
             if (User.IsInRole("Cliente"))
             {
-                
-                solicitacao.Where(s => s.UsuarioClienteId.Equals(idusuariologado));
+                solicitacao.Where(s => s.UsuarioCliente.Id.Equals(idusuariologado));
             }
 
             if (User.IsInRole("Monitor"))
             {
-
-                solicitacao.Where(s => s.UsuarioAlunoId.Equals(idusuariologado));
+                solicitacao.Where(s => s.UsuarioAluno.Id.Equals(idusuariologado));
             }
 
             return View(solicitacao.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
-            
+
         }
 
         [HttpPost]
@@ -67,7 +66,7 @@ namespace Newton.CJU.Controllers
         {
             return RedirectToAction("Index");
         }
-       
+
 
 
         // GET: Solicitacaos/Details/5
@@ -107,24 +106,18 @@ namespace Newton.CJU.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    AtividadeSemestral v_AtividadeSemestral = 
+                    AtividadeSemestral v_AtividadeSemestral =
                         db.AtividadesSemestrais.Where(p => p.AreaConhecimento.FatoCotidiano.Any(o => o.Id == solicitacaoViewModel.IdFatoCotidiano) && p.Ativo).FirstOrDefault();
-                    Situacao v_Situacao = db.Situacoes.FirstOrDefault();
                     FatoCotidiano v_FatoCotidiano = db.FatosCotidiano.Where(p => p.Id == solicitacaoViewModel.IdFatoCotidiano).FirstOrDefault();
 
-                    if(v_AtividadeSemestral == null)
+                    if (v_AtividadeSemestral == null)
                     {
                         solicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
                         ModelState.AddModelError("", "Não existe atividade semestral ativa para o Tipo de Assunto selecionado.");
                         return View(solicitacaoViewModel);
                     }
 
-                    if (v_Situacao == null)
-                    {
-                        solicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
-                        ModelState.AddModelError("", "Não existe Situação cadastrada.");
-                        return View(solicitacaoViewModel);
-                    }
+                    string v_GuidUser = User.Identity.GetUserId();
 
                     Solicitacao v_Solicitacao = new Solicitacao()
                     {
@@ -132,7 +125,7 @@ namespace Newton.CJU.Controllers
                             v_AtividadeSemestral.Id,
                         DataCadastro = DateTime.Now,
                         Situacao = SituacaoEnum.Criado,
-                        UsuarioClienteId = new Guid(User.Identity.GetUserId()),
+                        UsuarioCliente = db.Users.Where(p => p.Id == v_GuidUser).FirstOrDefault(),
                         Descricao = solicitacaoViewModel.Descricao,
                         Duvida = solicitacaoViewModel.Duvida,
                         IdentificacaoPartes = solicitacaoViewModel.IdentificacaoPartes,
@@ -160,7 +153,7 @@ namespace Newton.CJU.Controllers
             }
 
             return View(solicitacaoViewModel);
-          
+
         }
 
         // GET: Solicitacaos/Edit/5
@@ -177,6 +170,8 @@ namespace Newton.CJU.Controllers
                 return HttpNotFound();
             }
 
+            IdentityRole v_Role = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db)).FindByName("Monitor");
+
             SolicitacaoEdicaoViewModel v_SolicitacaoEdicaoViewModel = new SolicitacaoEdicaoViewModel()
             {
                 Id = id.Value,
@@ -185,9 +180,13 @@ namespace Newton.CJU.Controllers
                 Situacao = solicitacao.Situacao,
                 DataCadastro = solicitacao.DataCadastro,
                 Duvida = solicitacao.Duvida,
-                Descricao = solicitacao.Descricao
+                Descricao = solicitacao.Descricao,
+                Parecer = solicitacao.Parecer,
+                Fundamentacao = solicitacao.Fundamentacao,
+                Correcao = solicitacao.Correcao,
+                Monitores = db.Users.Where(p => p.Roles.Any(r => r.RoleId == v_Role.Id)).ToList()
             };
-            
+
             return View(v_SolicitacaoEdicaoViewModel);
         }
 
@@ -206,20 +205,21 @@ namespace Newton.CJU.Controllers
                 v_Solicitacao.Parecer = p_SolicitacaoEdicaoViewModel.Parecer;
                 v_Solicitacao.Correcao = p_SolicitacaoEdicaoViewModel.Correcao;
 
-                if (Request.Form["EnviarAluno"] != null)
+                if (Request.Form["EnviarMonitor"] != null)
                 {
-
+                    v_Solicitacao.Situacao = SituacaoEnum.EmAnalise;
+                    v_Solicitacao.UsuarioAluno = db.Users.Where(p => p.Id == p_SolicitacaoEdicaoViewModel.GuidMonitor).FirstOrDefault();
                 }
                 else if (Request.Form["EnviarCliente"] != null)
                 {
                     v_Solicitacao.Situacao = SituacaoEnum.Respondido;
+                    v_Solicitacao.UsuarioAluno = null;
                 }
 
-                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             return View(p_SolicitacaoEdicaoViewModel);
         }
 
@@ -260,10 +260,10 @@ namespace Newton.CJU.Controllers
             base.Dispose(disposing);
         }
 
-        
+
     }
 
-   
+
 
     internal class CadastroEntities
     {

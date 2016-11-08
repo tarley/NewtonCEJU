@@ -86,8 +86,30 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Enviar ao Aluno" name="EnviarAluno" class="btn btn-default" />
+                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Enviar ao Monitor</a> 
                 <input type="submit" value="Enviar ao Cliente" name="EnviarCliente" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Selecione um Monitor</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.LabelFor(model => model.GuidMonitor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("GuidMonitor", new SelectList(Model.Monitores, "Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GuidMonitor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br /><br />
+                <div class="modal-footer">
+                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                    <input value="Enviar" type="submit" class="btn btn-primary" name="EnviarMonitor"/>
+                </div>
             </div>
         </div>
     </div>
@@ -97,6 +119,10 @@
     @Html.ActionLink("Voltar", "Index")
 </div>
 
+
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
