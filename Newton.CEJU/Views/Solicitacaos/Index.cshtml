@@ -155,7 +155,7 @@
                     <td>
                         @Html.ActionLink("Editar", "Edit", new {id = item.Id})
                         @Html.DisplayName(" | ")
-                        @Html.ActionLink("Visualizar", "Details", new {id = item.Id})
+                        @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
                         @Html.DisplayName(" | ")
                         @Html.ActionLink("Excluir", "Delete", new {id = item.Id})
                     </td>
@@ -165,14 +165,14 @@
                     <td>
                         @Html.ActionLink("Editar", "Edit", new {id = item.Id})
                         @Html.DisplayName(" | ")
-                        @Html.ActionLink("Visualizar", "Details", new {id = item.Id})
+                        @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
 
                     </td>
                 }
                 if (User.IsInRole("Cliente"))
                 {
                     <td>
-                        @Html.ActionLink("Visualizar", "Details", new {id = item.Id})
+                        @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
                     </td>
                 }
             }

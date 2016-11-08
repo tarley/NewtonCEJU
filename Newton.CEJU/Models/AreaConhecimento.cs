@@ -18,7 +18,7 @@ namespace Newton.CJU.Models
         public string Nome { get; set; }
 
         [Required]
-        [Display(Name = "Status")]
+        [Display(Name = "Ativo")]
         public bool Ativo { get; set; }
 
         public virtual ICollection<AtividadeSemestral> AtividadeSemestral { get; set; }
