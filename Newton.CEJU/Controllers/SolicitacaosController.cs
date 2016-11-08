@@ -198,26 +198,43 @@ namespace Newton.CJU.Controllers
         [Authorize(Roles = "Professor, Monitor")]
         public ActionResult Edit(SolicitacaoEdicaoViewModel p_SolicitacaoEdicaoViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Solicitacao v_Solicitacao = db.Solicitacaos.Find(p_SolicitacaoEdicaoViewModel.Id);
-                v_Solicitacao.Fundamentacao = p_SolicitacaoEdicaoViewModel.Fundamentacao;
-                v_Solicitacao.Parecer = p_SolicitacaoEdicaoViewModel.Parecer;
-                v_Solicitacao.Correcao = p_SolicitacaoEdicaoViewModel.Correcao;
-
-                if (Request.Form["EnviarMonitor"] != null)
+                if (ModelState.IsValid)
                 {
-                    v_Solicitacao.Situacao = SituacaoEnum.EmAnalise;
-                    v_Solicitacao.UsuarioAluno = db.Users.Where(p => p.Id == p_SolicitacaoEdicaoViewModel.GuidMonitor).FirstOrDefault();
-                }
-                else if (Request.Form["EnviarCliente"] != null)
-                {
-                    v_Solicitacao.Situacao = SituacaoEnum.Respondido;
-                    v_Solicitacao.UsuarioAluno = null;
-                }
+                    Solicitacao v_Solicitacao = db.Solicitacaos.Find(p_SolicitacaoEdicaoViewModel.Id);
+                    v_Solicitacao.Fundamentacao = p_SolicitacaoEdicaoViewModel.Fundamentacao;
+                    v_Solicitacao.Parecer = p_SolicitacaoEdicaoViewModel.Parecer;
+                    v_Solicitacao.Correcao = p_SolicitacaoEdicaoViewModel.Correcao;
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    if (Request.Form["EnviarMonitor"] != null)
+                    {
+                        v_Solicitacao.Situacao = SituacaoEnum.EmAnalise;
+                        v_Solicitacao.UsuarioAlunoId = p_SolicitacaoEdicaoViewModel.GuidMonitor;
+                    }
+                    else if (Request.Form["EnviarCliente"] != null)
+                    {
+                        v_Solicitacao.Situacao = SituacaoEnum.Respondido;
+                        v_Solicitacao.UsuarioAluno = null;
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
 
             return View(p_SolicitacaoEdicaoViewModel);
