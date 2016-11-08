@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using Newton.CJU.DAL
+@using Newton.CJU.Models
 <!DOCTYPE html>
 
 <html>
@@ -49,8 +52,8 @@
                             <img src="~/imagens/logomarcaNewton.png" class="img-circle profile_img"/>
                         </div>
                         <div class="profile_info text-left">
-                            <span>Bem vindo,</span>
-                            <h2>@Html.ActionLink(User.Identity.GetUserName(), "Index", "Home")</h2>
+                            <span>Bem vindo(a),</span>
+                            <h2>@Html.ActionLink(new ApplicationUserManager(new UserStore<Usuario>(CJUContext.Create())).FindById(User.Identity.GetUserId()).Nome, "Index", "Home")</h2>
                         </div>
                     }
                 </div>
