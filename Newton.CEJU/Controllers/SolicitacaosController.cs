@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
-using Microsoft.AspNet.Identity;
-using Newton.CJU.ViewModel;
-using System.Data.Entity.Validation;
-using PagedList;
-using PagedList.Mvc;
 using Newton.CJU.Models.Enum;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Newton.CJU.ViewModel;
+using PagedList;
 
 namespace Newton.CJU.Controllers
 {
     public class SolicitacaosController : Controller
     {
-        private CJUContext db = new CJUContext();
+        private readonly CJUContext db = new CJUContext();
 
         // GET: Solicitacaos
         [Authorize(Roles = "Cliente, Professor, Monitor")]
@@ -29,8 +24,8 @@ namespace Newton.CJU.Controllers
         {
             var contexto = new CadastroEntities();
             var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico);
-            int TamanhoPagina = 10;
-            int NumeroPagina = (pagina ?? 1);
+            var TamanhoPagina = 10;
+            var NumeroPagina = pagina ?? 1;
 
             if (!string.IsNullOrEmpty(datainicial))
             {
@@ -48,17 +43,12 @@ namespace Newton.CJU.Controllers
 
             var idusuariologado = User.Identity.GetUserId();
             if (User.IsInRole("Cliente"))
-            {
                 solicitacao.Where(s => s.UsuarioCliente.Id.Equals(idusuariologado));
-            }
 
             if (User.IsInRole("Monitor"))
-            {
                 solicitacao.Where(s => s.UsuarioAluno.Id.Equals(idusuariologado));
-            }
 
             return View(solicitacao.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
-
         }
 
         [HttpPost]
@@ -68,20 +58,15 @@ namespace Newton.CJU.Controllers
         }
 
 
-
         // GET: Solicitacaos/Details/5
         [Authorize(Roles = "Cliente, Professor, Monitor")]
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Solicitacao solicitacao = db.Solicitacaos.Find(id);
+            var solicitacao = db.Solicitacaos.Find(id);
             if (solicitacao == null)
-            {
                 return HttpNotFound();
-            }
             return View(solicitacao);
         }
 
@@ -89,7 +74,7 @@ namespace Newton.CJU.Controllers
         [Authorize(Roles = "Cliente")]
         public ActionResult Create()
         {
-            SolicitacaoViewModel v_SolicitacaoViewModel = new SolicitacaoViewModel();
+            var v_SolicitacaoViewModel = new SolicitacaoViewModel();
             v_SolicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
             return View(v_SolicitacaoViewModel);
         }
@@ -106,20 +91,25 @@ namespace Newton.CJU.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    AtividadeSemestral v_AtividadeSemestral =
-                        db.AtividadesSemestrais.Where(p => p.AreaConhecimento.FatoCotidiano.Any(o => o.Id == solicitacaoViewModel.IdFatoCotidiano) && p.Ativo).FirstOrDefault();
-                    FatoCotidiano v_FatoCotidiano = db.FatosCotidiano.Where(p => p.Id == solicitacaoViewModel.IdFatoCotidiano).FirstOrDefault();
+                    var v_AtividadeSemestral =
+                        db.AtividadesSemestrais.Where(
+                            p =>
+                                p.AreaConhecimento.FatoCotidiano.Any(
+                                    o => o.Id == solicitacaoViewModel.IdFatoCotidiano) && p.Ativo).FirstOrDefault();
+                    var v_FatoCotidiano =
+                        db.FatosCotidiano.Where(p => p.Id == solicitacaoViewModel.IdFatoCotidiano).FirstOrDefault();
 
                     if (v_AtividadeSemestral == null)
                     {
                         solicitacaoViewModel.FatosCotidianos = db.FatosCotidiano.OrderBy(p => p.Nome).ToList();
-                        ModelState.AddModelError("", "Não existe atividade semestral ativa para o Tipo de Assunto selecionado.");
+                        ModelState.AddModelError("",
+                            "Não existe atividade semestral ativa para o Tipo de Assunto selecionado.");
                         return View(solicitacaoViewModel);
                     }
 
-                    string v_GuidUser = User.Identity.GetUserId();
+                    var v_GuidUser = User.Identity.GetUserId();
 
-                    Solicitacao v_Solicitacao = new Solicitacao()
+                    var v_Solicitacao = new Solicitacao
                     {
                         AtividadeSemestralId =
                             v_AtividadeSemestral.Id,
@@ -144,16 +134,13 @@ namespace Newton.CJU.Controllers
                     Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
                         eve.Entry.Entity.GetType().Name, eve.Entry.State);
                     foreach (var ve in eve.ValidationErrors)
-                    {
                         Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
                             ve.PropertyName, ve.ErrorMessage);
-                    }
                 }
                 throw;
             }
 
             return View(solicitacaoViewModel);
-
         }
 
         // GET: Solicitacaos/Edit/5
@@ -161,18 +148,14 @@ namespace Newton.CJU.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Solicitacao solicitacao = db.Solicitacaos.Find(id);
+            var solicitacao = db.Solicitacaos.Find(id);
             if (solicitacao == null)
-            {
                 return HttpNotFound();
-            }
 
-            IdentityRole v_Role = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db)).FindByName("Monitor");
+            var v_Role = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db)).FindByName("Monitor");
 
-            SolicitacaoEdicaoViewModel v_SolicitacaoEdicaoViewModel = new SolicitacaoEdicaoViewModel()
+            var v_SolicitacaoEdicaoViewModel = new SolicitacaoEdicaoViewModel
             {
                 Id = id.Value,
                 FatoCotidiano = solicitacao.FatoCotidiano.Nome,
@@ -245,24 +228,21 @@ namespace Newton.CJU.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Solicitacao solicitacao = db.Solicitacaos.Find(id);
+            var solicitacao = db.Solicitacaos.Find(id);
             if (solicitacao == null)
-            {
                 return HttpNotFound();
-            }
             return View(solicitacao);
         }
 
         // POST: Solicitacaos/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Professor")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Solicitacao solicitacao = db.Solicitacaos.Find(id);
+            var solicitacao = db.Solicitacaos.Find(id);
             db.Solicitacaos.Remove(solicitacao);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -271,21 +251,13 @@ namespace Newton.CJU.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
-
-
     }
-
 
 
     internal class CadastroEntities
     {
-        public CadastroEntities()
-        {
-        }
     }
 }

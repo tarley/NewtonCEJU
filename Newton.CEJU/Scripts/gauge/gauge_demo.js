@@ -5,15 +5,15 @@ var opts = {
     pointer: {
         length: 0.75, // The radius of the inner circle
         strokeWidth: 0.042, // The rotation offset
-        color: '#1D212A' // Fill color
+        color: "#1D212A" // Fill color
     },
-    limitMax: 'false', // If true, the pointer will not go past the end of the gauge
-    colorStart: '#1ABC9C', // Colors
-    colorStop: '#1ABC9C', // just experiment with them
-    strokeColor: '#F0F3F3', // to see which ones work best for you
+    limitMax: "false", // If true, the pointer will not go past the end of the gauge
+    colorStart: "#1ABC9C", // Colors
+    colorStop: "#1ABC9C", // just experiment with them
+    strokeColor: "#F0F3F3", // to see which ones work best for you
     generateGradient: true
 };
-var target = document.getElementById('foo'); // your canvas element
+var target = document.getElementById("foo"); // your canvas element
 var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 gauge.maxValue = 6000; // set max gauge value
 gauge.animationSpeed = 32; // set animation speed (32 is default value)

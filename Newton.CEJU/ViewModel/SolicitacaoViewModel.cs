@@ -1,11 +1,7 @@
-﻿using Newton.CJU.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newton.CJU.Models;
 
 namespace Newton.CJU.ViewModel
 {

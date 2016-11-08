@@ -1,71 +1,72 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - CJU - Newton Paiva</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                
-            </div>
-            <div class="navbar-collapse collapse">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
+        </div>
+        <div class="navbar-collapse collapse">
 
-                @using Microsoft.AspNet.Identity
-                @if (Request.IsAuthenticated)
+            @if (Request.IsAuthenticated)
+            {
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("AreaJuridica", "Index", "AreaJuridica")</li>
+                    <li>@Html.ActionLink("Pergunta", "Index", "Pergunta")</li>
+                    <li>@Html.ActionLink("Resposta", "Index", "Resposta")</li>
+                </ul>
+
+                using (Html.BeginForm("Sair", "Autenticacao", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("AreaJuridica", "Index", "AreaJuridica")</li>
-                        <li>@Html.ActionLink("Pergunta", "Index", "Pergunta")</li>
-                        <li>@Html.ActionLink("Resposta", "Index", "Resposta")</li>
-                    </ul>
+                    @Html.AntiForgeryToken()
 
-                    using (Html.BeginForm("Sair", "Autenticacao", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Home")
-                            </li>
-                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
-                        </ul>
-                    }
-                }
-                else
-                {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Registrar-se", "Register", "Autenticacao", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                        <li>@Html.ActionLink("Logar", "Login", "Autenticacao", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <li>
+                            @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Home")
+                        </li>
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Sair</a>
+                        </li>
                     </ul>
                 }
+            }
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Registrar-se", "Register", "Autenticacao", null, new {id = "registerLink"})</li>
+                    <li>@Html.ActionLink("Logar", "Login", "Autenticacao", null, new {id = "loginLink"})</li>
+                </ul>
+            }
 
 
-            </div>
         </div>
     </div>
+</div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - CJU - Newton Paiva</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - CJU - Newton Paiva</p>
+    </footer>
+</div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate"></script>
 </body>
 </html>

@@ -7,8 +7,8 @@
 <h2>Detalhes da Solicitação</h2>
 
 <div>
-   
-    <hr />
+
+    <hr/>
     <dl class="dl-horizontal">
 
         <dt>
@@ -46,19 +46,16 @@
                 <dd>
                     @Html.DisplayFor(model => model.UsuarioAluno.Nome)
                 </dd>
-
-
             }
-            if ((User.IsInRole("Professor")) || (User.IsInRole("Monitor")))
+            if (User.IsInRole("Professor") || User.IsInRole("Monitor"))
             {
                 <dt>
                     @Html.DisplayName("Atividade Semestral")
                 </dt>
 
                 <dd>
-                     @Html.DisplayFor(model => model.AtividadeSemestral.AreaConhecimento.Nome)
+                    @Html.DisplayFor(model => model.AtividadeSemestral.AreaConhecimento.Nome)
                 </dd>
-
             }
         }
 
@@ -78,29 +75,27 @@
             @Html.DisplayFor(model => model.Duvida)
         </dd>
 
-    @if (Request.IsAuthenticated)
-    {
-        if ((User.IsInRole("Professor")) || (User.IsInRole("Monitor")))
+        @if (Request.IsAuthenticated)
         {
+            if (User.IsInRole("Professor") || User.IsInRole("Monitor"))
+            {
+                <dt>
+                    @Html.DisplayName("Fundamentação")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Fundamentação")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Fundamentacao)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Fundamentacao)
-            </dd>
+                <dt>
+                    @Html.DisplayName("Correção")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Correção")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Correcao)
-            </dd>
-
+                <dd>
+                    @Html.DisplayFor(model => model.Correcao)
+                </dd>
+            }
         }
-    }
 
         <dt>
             @Html.DisplayName("Parecer")
@@ -111,17 +106,16 @@
         </dd>
 
     </dl>
- 
+
 </div>
 <p>
-@if (Request.IsAuthenticated)
-{
-    if ((User.IsInRole("Professor")) || (User.IsInRole("Monitor")))
+    @if (Request.IsAuthenticated)
     {
-         @Html.ActionLink("Editar", "Edit", new { id = Model.Id })
-         @Html.DisplayName(" | ")
+        if (User.IsInRole("Professor") || User.IsInRole("Monitor"))
+        {
+            @Html.ActionLink("Editar", "Edit", new {id = Model.Id})
+            @Html.DisplayName(" | ")
+        }
     }
-
-}
     @Html.ActionLink("Voltar", "Index")
 </p>

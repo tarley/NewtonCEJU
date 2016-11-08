@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
@@ -14,7 +10,7 @@ namespace Newton.CJU.Controllers
     [Authorize(Roles = "Professor, Monitor")]
     public class AreasConhecimentoController : Controller
     {
-        private CJUContext db = new CJUContext();
+        private readonly CJUContext db = new CJUContext();
 
         // GET: AreasConhecimento
         [Authorize(Roles = "Professor")]
@@ -28,14 +24,10 @@ namespace Newton.CJU.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AreaConhecimento areaConhecimento = db.AreasConhecimento.Find(id);
+            var areaConhecimento = db.AreasConhecimento.Find(id);
             if (areaConhecimento == null)
-            {
                 return HttpNotFound();
-            }
             return View(areaConhecimento);
         }
 
@@ -69,14 +61,10 @@ namespace Newton.CJU.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AreaConhecimento areaConhecimento = db.AreasConhecimento.Find(id);
+            var areaConhecimento = db.AreasConhecimento.Find(id);
             if (areaConhecimento == null)
-            {
                 return HttpNotFound();
-            }
             return View(areaConhecimento);
         }
 
@@ -102,24 +90,21 @@ namespace Newton.CJU.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AreaConhecimento areaConhecimento = db.AreasConhecimento.Find(id);
+            var areaConhecimento = db.AreasConhecimento.Find(id);
             if (areaConhecimento == null)
-            {
                 return HttpNotFound();
-            }
             return View(areaConhecimento);
         }
 
         // POST: AreasConhecimento/Delete/5
         [Authorize(Roles = "Professor")]
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AreaConhecimento areaConhecimento = db.AreasConhecimento.Find(id);
+            var areaConhecimento = db.AreasConhecimento.Find(id);
             db.AreasConhecimento.Remove(areaConhecimento);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -128,9 +113,7 @@ namespace Newton.CJU.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

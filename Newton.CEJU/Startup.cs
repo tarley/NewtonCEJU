@@ -1,7 +1,9 @@
 ﻿using Microsoft.Owin;
+using Newton.CJU;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Newton.CJU.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace Newton.CJU
 {
     public partial class Startup

@@ -1,15 +1,11 @@
-﻿using Newton.CJU.Models.Enum;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using Newton.CJU.Models.Enum;
 
 namespace Newton.CJU.Models
 {
     public class Historico
     {
-
         [Key]
         public int Id { get; set; }
 

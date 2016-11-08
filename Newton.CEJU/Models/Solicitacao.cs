@@ -1,11 +1,8 @@
-﻿using Newton.CJU.Models.Enum;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+using Newton.CJU.Models.Enum;
 
 namespace Newton.CJU.Models
 {
@@ -13,11 +10,12 @@ namespace Newton.CJU.Models
     {
         public Solicitacao()
         {
-            this.Historico = new HashSet<Historico>();
+            Historico = new HashSet<Historico>();
         }
 
         [Key]
         public int Id { get; set; }
+
         [Required]
         public SituacaoEnum Situacao { get; set; }
 
@@ -36,6 +34,7 @@ namespace Newton.CJU.Models
         [StringLength(100)]
         [Required(ErrorMessage = "Este campo é obrigatório! Por favor, descreva de forma resumida sua dúvida.")]
         public string Duvida { get; set; }
+
         public string Parecer { get; set; }
 
         public string FatoJuridico { get; set; }
@@ -50,10 +49,12 @@ namespace Newton.CJU.Models
         [StringLength(500)]
         [Required(ErrorMessage = "Descrição é obrigatória!")]
         public string Descricao { get; set; }
+
         public string Correcao { get; set; }
 
         // [ForeignKey("UsuarioClienteId")]
         public virtual Usuario UsuarioCliente { get; set; }
+
         public virtual FatoCotidiano FatoCotidiano { get; set; }
         //  [ForeignKey("UsuarioAlunoId")]
         public virtual Usuario UsuarioAluno { get; set; }

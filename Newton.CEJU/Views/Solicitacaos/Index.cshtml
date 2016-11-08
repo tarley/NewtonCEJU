@@ -1,16 +1,12 @@
-﻿@model PagedList.PagedList<Newton.CJU.Models.Solicitacao>
-@using PagedList
-@using PagedList.Mvc
-@using Newton.CJU.Models.Enum;
+﻿@using PagedList.Mvc
+@model PagedList.PagedList<Newton.CJU.Models.Solicitacao>
 
 @{
     ViewBag.Title = "Solicitações";
 }
 
 <style>
-    .cor-linha {
-        background-color: #FFFF00;
-    }
+    .cor-linha { background-color: #FFFF00; }
 </style>
 
 <h2>Acompanhamento Solicitação</h2>
@@ -27,11 +23,11 @@
                     <div class="col-md-2">
 
                         <p>Data Inicial:</p>
-                        @Html.TextBox("datainicial", "", htmlAttributes: new { @class = "form-control" })
+                        @Html.TextBox("datainicial", "", new {@class = "form-control"})
                     </div>
                     <div class="col-md-2">
                         <p>Data Final:</p>
-                        @Html.TextBox("datafinal", "", htmlAttributes: new { @class = "form-control" })
+                        @Html.TextBox("datafinal", "", new {@class = "form-control"})
                     </div>
 
                     <div class="col-md-2">
@@ -47,15 +43,14 @@
 
                     </div>
                     <div class="col-md-3">
-                        Situacao:
-                        @*@Html.DropDownList("IdSituacao", new SelectList("Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })*@       
+                        
+                        @*@Html.DropDownList("IdSituacao", new SelectList("Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })*@
                         @*Html.DropDownList("FeedType", (SelectList)ViewBag.FeedTypeList)*@
                     </div>
                 }
             </div>
         }
     }
-
 }
 
 <br>
@@ -75,7 +70,7 @@
             @Html.DisplayName("Data de Cadastro")
         </th>
 
-        
+
         @if (Request.IsAuthenticated)
         {
             if (User.IsInRole("Cliente"))
@@ -83,7 +78,6 @@
                 <th>
                     @Html.DisplayName("Fato Juridico")
                 </th>
-
             }
 
             if (User.IsInRole("Monitor"))
@@ -91,7 +85,6 @@
                 <th>
                     @Html.DisplayName("Atividade Semestral")
                 </th>
-
             }
 
             if (User.IsInRole("Professor"))
@@ -99,7 +92,7 @@
                 <th>
                     @Html.DisplayName("Atividade Semestral")
                 </th>
-               
+
                 <th>
                     @Html.DisplayName("Monitor")
                 </th>
@@ -115,7 +108,7 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr @(DateTime.Now.Subtract(item.DataCadastro).Days > 7 ? "class=cor-linha" : String.Empty)>
+        <tr @(DateTime.Now.Subtract(item.DataCadastro).Days > 7 ? "class=cor-linha" : string.Empty)>
 
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -160,27 +153,26 @@
                 if (User.IsInRole("Professor"))
                 {
                     <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Editar", "Edit", new {id = item.Id})
                         @Html.DisplayName(" | ")
-                        @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+                        @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
                         @Html.DisplayName(" | ")
-                        @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Excluir", "Delete", new {id = item.Id})
                     </td>
                 }
                 if (User.IsInRole("Monitor"))
                 {
                     <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Editar", "Edit", new {id = item.Id})
                         @Html.DisplayName(" | ")
-                        @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+                        @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
 
                     </td>
                 }
                 if (User.IsInRole("Cliente"))
                 {
-
                     <td>
-                        @Html.ActionLink("Visualizar", "Details", new { id = item.Id })
+                        @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
                     </td>
                 }
             }
@@ -193,6 +185,6 @@
 <div class="col-md-12">
     <div class="text-center">
         Página @Model.PageNumber de @Model.PageCount
-        @Html.PagedListPager(Model, Page => Url.Action("Index", new { pagina = Page }))
+        @Html.PagedListPager(Model, Page => Url.Action("Index", new {pagina = Page}))
     </div>
 </div>

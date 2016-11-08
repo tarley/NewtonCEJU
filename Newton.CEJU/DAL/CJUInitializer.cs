@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
-using Newton.CJU.Models;
+﻿using System.Data.Entity;
 
 namespace Newton.CJU.DAL
 {
-    public class CJUInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<CJUContext>
+    public class CJUInitializer : DropCreateDatabaseIfModelChanges<CJUContext>
     {
         protected override void Seed(CJUContext context)
         {
-           
         }
     }
 }

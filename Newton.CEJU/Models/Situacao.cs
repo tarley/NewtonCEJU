@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Newton.CJU.Models
 {
@@ -10,12 +7,13 @@ namespace Newton.CJU.Models
     {
         public Situacao()
         {
-            this.Solicitacao = new HashSet<Solicitacao>();
-            this.Historico = new HashSet<Historico>();
+            Solicitacao = new HashSet<Solicitacao>();
+            Historico = new HashSet<Historico>();
         }
 
         [Key]
         public int Id { get; set; }
+
         public string Nome { get; set; }
 
         public virtual ICollection<Solicitacao> Solicitacao { get; set; }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
@@ -13,7 +9,7 @@ namespace Newton.CJU.Controllers
 {
     public class FatosCotidianoController : Controller
     {
-        private CJUContext db = new CJUContext();
+        private readonly CJUContext db = new CJUContext();
 
         // GET: FatosCotidiano
         [Authorize(Roles = "Professor")]
@@ -28,14 +24,10 @@ namespace Newton.CJU.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FatoCotidiano fatoCotidiano = db.FatosCotidiano.Find(id);
+            var fatoCotidiano = db.FatosCotidiano.Find(id);
             if (fatoCotidiano == null)
-            {
                 return HttpNotFound();
-            }
             return View(fatoCotidiano);
         }
 
@@ -62,7 +54,8 @@ namespace Newton.CJU.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome", fatoCotidiano.AreaConhecimentoId);
+            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome",
+                fatoCotidiano.AreaConhecimentoId);
             return View(fatoCotidiano);
         }
 
@@ -71,15 +64,12 @@ namespace Newton.CJU.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FatoCotidiano fatoCotidiano = db.FatosCotidiano.Find(id);
+            var fatoCotidiano = db.FatosCotidiano.Find(id);
             if (fatoCotidiano == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome", fatoCotidiano.AreaConhecimentoId);
+            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome",
+                fatoCotidiano.AreaConhecimentoId);
             return View(fatoCotidiano);
         }
 
@@ -97,7 +87,8 @@ namespace Newton.CJU.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome", fatoCotidiano.AreaConhecimentoId);
+            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome",
+                fatoCotidiano.AreaConhecimentoId);
             return View(fatoCotidiano);
         }
 
@@ -106,24 +97,21 @@ namespace Newton.CJU.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            FatoCotidiano fatoCotidiano = db.FatosCotidiano.Find(id);
+            var fatoCotidiano = db.FatosCotidiano.Find(id);
             if (fatoCotidiano == null)
-            {
                 return HttpNotFound();
-            }
             return View(fatoCotidiano);
         }
 
         // POST: FatosCotidiano/Delete/5
         [Authorize(Roles = "Professor")]
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            FatoCotidiano fatoCotidiano = db.FatosCotidiano.Find(id);
+            var fatoCotidiano = db.FatosCotidiano.Find(id);
             db.FatosCotidiano.Remove(fatoCotidiano);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -132,9 +120,7 @@ namespace Newton.CJU.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }
