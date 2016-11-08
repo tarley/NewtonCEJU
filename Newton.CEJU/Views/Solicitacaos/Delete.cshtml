@@ -19,27 +19,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Historico.Id)
+            @Html.DisplayNameFor(model => model.Historico)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Historico.Id)
+            @Html.DisplayFor(model => model.Historico)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Situacao.Nome)
+            @Html.DisplayNameFor(model => model.Situacao)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Situacao.Nome)
+            @Html.DisplayFor(model => model.Situacao)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UsuarioId)
+            @Html.DisplayNameFor(model => model.UsuarioAluno)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UsuarioId)
+            @Html.DisplayFor(model => model.UsuarioAluno)
         </dd>
 
         <dt>
@@ -113,7 +113,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Excluir" class="btn btn-default"/> |
+            <input type="submit" value="Excluir" class="btn btn-primary"/> |
             @Html.ActionLink("Voltar", "Index")
         </div>
     }
