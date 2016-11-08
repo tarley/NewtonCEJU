@@ -31,22 +31,22 @@ namespace Newton.CJU.Controllers
             {
                 DateTime dtinicio;
                 if (DateTime.TryParse(datainicial, out dtinicio))
-                    solicitacao.Where(s => s.DataCadastro >= dtinicio);
+                    solicitacao = solicitacao.Where(s => s.DataCadastro >= dtinicio);
             }
 
             if (!string.IsNullOrEmpty(datafinal))
             {
                 DateTime dtfim;
                 if (DateTime.TryParse(datafinal, out dtfim))
-                    solicitacao.Where(s => s.DataCadastro <= dtfim);
+                    solicitacao = solicitacao.Where(s => s.DataCadastro <= dtfim);
             }
 
             var idusuariologado = User.Identity.GetUserId();
             if (User.IsInRole("Cliente"))
-                solicitacao.Where(s => s.UsuarioCliente.Id.Equals(idusuariologado));
+                solicitacao = solicitacao.Where(s => s.UsuarioCliente.Id.Equals(idusuariologado));
 
             if (User.IsInRole("Monitor"))
-                solicitacao.Where(s => s.UsuarioAluno.Id.Equals(idusuariologado));
+                solicitacao = solicitacao.Where(s => s.UsuarioAluno.Id.Equals(idusuariologado));
 
             return View(solicitacao.OrderBy(p => p.Id).ToPagedList(NumeroPagina, TamanhoPagina));
         }
