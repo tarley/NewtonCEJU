@@ -20,7 +20,7 @@ namespace Newton.CJU.Controllers
 
         // GET: Solicitacaos
         [Authorize(Roles = "Cliente, Professor, Monitor")]
-        public ActionResult Index(int? pagina, string datainicial = null, string datafinal = null)
+        public ActionResult Index(int? pagina, string datainicial = null, string datafinal = null, string situacao = null)
         {
             var contexto = new CadastroEntities();
             var solicitacao = db.Solicitacaos.Include(s => s.AtividadeSemestral).Include(s => s.Historico);
@@ -39,6 +39,13 @@ namespace Newton.CJU.Controllers
                 DateTime dtfim;
                 if (DateTime.TryParse(datafinal, out dtfim))
                     solicitacao = solicitacao.Where(s => s.DataCadastro <= dtfim);
+            }
+
+            if (!string.IsNullOrEmpty(situacao))
+            {
+                int situacaoInt;
+                if (int.TryParse(situacao, out situacaoInt))
+                    solicitacao = solicitacao.Where(s => s.Situacao == (SituacaoEnum)situacaoInt);
             }
 
             var idusuariologado = User.Identity.GetUserId();
