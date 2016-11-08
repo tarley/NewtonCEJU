@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Owin;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Owin;
 
 namespace Newton.CJU
 {
@@ -38,8 +38,8 @@ namespace Newton.CJU
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, Usuario>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        TimeSpan.FromMinutes(30),
+                        (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
         }
@@ -47,11 +47,11 @@ namespace Newton.CJU
         // In this method we will create default User roles and Admin user for login   
         private void CreateRolesAndUsers()
         {
-            CJUContext context = CJUContext.Create();
+            var context = CJUContext.Create();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<Usuario>(new UserStore<Usuario>(context));
-            
+
             if (!roleManager.RoleExists("Monitor"))
             {
                 var role = new IdentityRole();
@@ -77,7 +77,7 @@ namespace Newton.CJU
                 user.UserName = "valeria@newtonpaiva.com";
                 user.Email = "valeria@newtonpaiva.com";
 
-                string userPWD = "ceju2016";
+                var userPWD = "ceju2016";
 
                 var chkUser = UserManager.Create(user, userPWD);
                 if (chkUser.Succeeded)

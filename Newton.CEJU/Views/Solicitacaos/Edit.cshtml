@@ -10,84 +10,84 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Situacao, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.Situacao)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FatoCotidiano, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FatoCotidiano, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.FatoCotidiano)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DataCadastro, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DataCadastro, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.DataCadastro)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdentificacaoPartes, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdentificacaoPartes, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.IdentificacaoPartes)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Duvida, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Duvida, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Duvida, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.Duvida, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Duvida, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
+                @Html.ValidationMessageFor(model => model.Duvida, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Descricao, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Descricao, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
+                @Html.ValidationMessageFor(model => model.Descricao, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Parecer, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Parecer, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Parecer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Parecer, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Parecer, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Parecer, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Fundamentacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Fundamentacao, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Fundamentacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fundamentacao, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Fundamentacao, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Fundamentacao, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Correcao, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Correcao, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Correcao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Correcao, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Correcao, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Correcao, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Enviar ao Monitor</a> 
-                <input type="submit" value="Enviar ao Cliente" name="EnviarCliente" class="btn btn-default" />
+                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Enviar ao Monitor</a>
+                <input type="submit" value="Enviar ao Cliente" name="EnviarCliente" class="btn btn-default"/>
             </div>
         </div>
     </div>
@@ -95,17 +95,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Selecione um Monitor</h4>
                 </div>
                 <div class="modal-body">
-                    @Html.LabelFor(model => model.GuidMonitor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.GuidMonitor, new {@class = "control-label col-md-2"})
                     <div class="col-md-10">
-                        @Html.DropDownList("GuidMonitor", new SelectList(Model.Monitores, "Id", "Nome"), " - ", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.GuidMonitor, "", new { @class = "text-danger" })
+                        @Html.DropDownList("GuidMonitor", new SelectList(Model.Monitores, "Id", "Nome"), " - ", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.GuidMonitor, "", new {@class = "text-danger"})
                     </div>
                 </div>
-                <br /><br />
+                <br/><br/>
                 <div class="modal-footer">
                     <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
                     <input value="Enviar" type="submit" class="btn btn-primary" name="EnviarMonitor"/>
@@ -120,9 +121,6 @@
 </div>
 
 
-
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-

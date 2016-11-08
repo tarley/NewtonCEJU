@@ -5,137 +5,155 @@
  */
 
 /** ******  left menu  *********************** **/
-$(function () {
-    $('#sidebar-menu li ul').slideUp();
-    $('#sidebar-menu li').removeClass('active');
+$(function() {
+    $("#sidebar-menu li ul").slideUp();
+    $("#sidebar-menu li").removeClass("active");
 
-    $('#sidebar-menu li').on('click touchstart', function() {
-        var link = $('a', this).attr('href');
+    $("#sidebar-menu li")
+        .on("click touchstart",
+            function() {
+                var link = $("a", this).attr("href");
 
-        if(link) { 
-            window.location.href = link;
-        } else {
-            if ($(this).is('.active')) {
-                $(this).removeClass('active');
-                $('ul', this).slideUp();
+                if (link) {
+                    window.location.href = link;
+                } else {
+                    if ($(this).is(".active")) {
+                        $(this).removeClass("active");
+                        $("ul", this).slideUp();
+                    } else {
+                        $("#sidebar-menu li").removeClass("active");
+                        $("#sidebar-menu li ul").slideUp();
+
+                        $(this).addClass("active");
+                        $("ul", this).slideDown();
+                    }
+                }
+            });
+
+    $("#menu_toggle")
+        .click(function() {
+            if ($("body").hasClass("nav-md")) {
+                $("body").removeClass("nav-md").addClass("nav-sm");
+                $(".left_col").removeClass("scroll-view").removeAttr("style");
+                $(".sidebar-footer").hide();
+
+                if ($("#sidebar-menu li").hasClass("active")) {
+                    $("#sidebar-menu li.active").addClass("active-sm").removeClass("active");
+                }
             } else {
-                $('#sidebar-menu li').removeClass('active');
-                $('#sidebar-menu li ul').slideUp();
-                
-                $(this).addClass('active');
-                $('ul', this).slideDown();
-            }
-        }
-    });
+                $("body").removeClass("nav-sm").addClass("nav-md");
+                $(".sidebar-footer").show();
 
-    $('#menu_toggle').click(function () {
-        if ($('body').hasClass('nav-md')) {
-            $('body').removeClass('nav-md').addClass('nav-sm');
-            $('.left_col').removeClass('scroll-view').removeAttr('style');
-            $('.sidebar-footer').hide();
-
-            if ($('#sidebar-menu li').hasClass('active')) {
-                $('#sidebar-menu li.active').addClass('active-sm').removeClass('active');
+                if ($("#sidebar-menu li").hasClass("active-sm")) {
+                    $("#sidebar-menu li.active-sm").addClass("active").removeClass("active-sm");
+                }
             }
-        } else {
-            $('body').removeClass('nav-sm').addClass('nav-md');
-            $('.sidebar-footer').show();
-
-            if ($('#sidebar-menu li').hasClass('active-sm')) {
-                $('#sidebar-menu li.active-sm').addClass('active').removeClass('active-sm');
-            }
-        }
-    });
+        });
 });
 
 /* Sidebar Menu active class */
-$(function () {
+$(function() {
     var url = window.location;
-    $('#sidebar-menu a[href="' + url + '"]').parent('li').addClass('current-page');
-    $('#sidebar-menu a').filter(function () {
-        return this.href == url;
-    }).parent('li').addClass('current-page').parent('ul').slideDown().parent().addClass('active');
+    $('#sidebar-menu a[href="' + url + '"]').parent("li").addClass("current-page");
+    $("#sidebar-menu a")
+        .filter(function() {
+            return this.href == url;
+        })
+        .parent("li")
+        .addClass("current-page")
+        .parent("ul")
+        .slideDown()
+        .parent()
+        .addClass("active");
 });
 
 /** ******  /left menu  *********************** **/
 /** ******  right_col height flexible  *********************** **/
 $(".right_col").css("min-height", $(window).height());
-$(window).resize(function () {
-    $(".right_col").css("min-height", $(window).height());
-});
+$(window)
+    .resize(function() {
+        $(".right_col").css("min-height", $(window).height());
+    });
 /** ******  /right_col height flexible  *********************** **/
 
 
-
 /** ******  tooltip  *********************** **/
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
 /** ******  /tooltip  *********************** **/
 /** ******  progressbar  *********************** **/
 if ($(".progress .progress-bar")[0]) {
-    $('.progress .progress-bar').progressbar(); // bootstrap 3
+    $(".progress .progress-bar").progressbar(); // bootstrap 3
 }
 /** ******  /progressbar  *********************** **/
 /** ******  switchery  *********************** **/
 if ($(".js-switch")[0]) {
-    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-    elems.forEach(function (html) {
-        var switchery = new Switchery(html, {
-            color: '#26B99A'
+    var elems = Array.prototype.slice.call(document.querySelectorAll(".js-switch"));
+    elems.forEach(function(html) {
+        var switchery = new Switchery(html,
+        {
+            color: "#26B99A"
         });
     });
 }
 /** ******  /switcher  *********************** **/
 /** ******  collapse panel  *********************** **/
 // Close ibox function
-$('.close-link').click(function () {
-    var content = $(this).closest('div.x_panel');
-    content.remove();
-});
+$(".close-link")
+    .click(function() {
+        var content = $(this).closest("div.x_panel");
+        content.remove();
+    });
 
 // Collapse ibox function
-$('.collapse-link').click(function () {
-    var x_panel = $(this).closest('div.x_panel');
-    var button = $(this).find('i');
-    var content = x_panel.find('div.x_content');
-    content.slideToggle(200);
-    (x_panel.hasClass('fixed_height_390') ? x_panel.toggleClass('').toggleClass('fixed_height_390') : '');
-    (x_panel.hasClass('fixed_height_320') ? x_panel.toggleClass('').toggleClass('fixed_height_320') : '');
-    button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
-    setTimeout(function () {
-        x_panel.resize();
-    }, 50);
-});
+$(".collapse-link")
+    .click(function() {
+        var x_panel = $(this).closest("div.x_panel");
+        var button = $(this).find("i");
+        var content = x_panel.find("div.x_content");
+        content.slideToggle(200);
+        (x_panel.hasClass("fixed_height_390") ? x_panel.toggleClass("").toggleClass("fixed_height_390") : "");
+        (x_panel.hasClass("fixed_height_320") ? x_panel.toggleClass("").toggleClass("fixed_height_320") : "");
+        button.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down");
+        setTimeout(function() {
+                x_panel.resize();
+            },
+            50);
+    });
 /** ******  /collapse panel  *********************** **/
 /** ******  iswitch  *********************** **/
 if ($("input.flat")[0]) {
-    $(document).ready(function () {
-        $('input.flat').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
+    $(document)
+        .ready(function() {
+            $("input.flat")
+                .iCheck({
+                    checkboxClass: "icheckbox_flat-green",
+                    radioClass: "iradio_flat-green"
+                });
         });
-    });
 }
 /** ******  /iswitch  *********************** **/
 /** ******  star rating  *********************** **/
 // Starrr plugin (https://github.com/dobtco/starrr)
 var __slice = [].slice;
 
-(function ($, window) {
+(function($, window) {
     var Starrr;
 
-    Starrr = (function () {
+    Starrr = (function() {
         Starrr.prototype.defaults = {
             rating: void 0,
             numStars: 5,
-            change: function (e, value) {
+            change: function(e, value) {
             }
         };
 
         function Starrr($el, options) {
-            var i, _, _ref,
-                    _this = this;
+            var i,
+                _,
+                _ref,
+                _this = this;
 
             this.options = $.extend({}, this.defaults, options);
             this.$el = $el;
@@ -148,19 +166,24 @@ var __slice = [].slice;
             }
             this.createStars();
             this.syncRating();
-            this.$el.on('mouseover.starrr', 'span', function (e) {
-                return _this.syncRating(_this.$el.find('span').index(e.currentTarget) + 1);
-            });
-            this.$el.on('mouseout.starrr', function () {
-                return _this.syncRating();
-            });
-            this.$el.on('click.starrr', 'span', function (e) {
-                return _this.setRating(_this.$el.find('span').index(e.currentTarget) + 1);
-            });
-            this.$el.on('starrr:change', this.options.change);
+            this.$el.on("mouseover.starrr",
+                "span",
+                function(e) {
+                    return _this.syncRating(_this.$el.find("span").index(e.currentTarget) + 1);
+                });
+            this.$el.on("mouseout.starrr",
+                function() {
+                    return _this.syncRating();
+                });
+            this.$el.on("click.starrr",
+                "span",
+                function(e) {
+                    return _this.setRating(_this.$el.find("span").index(e.currentTarget) + 1);
+                });
+            this.$el.on("starrr:change", this.options.change);
         }
 
-        Starrr.prototype.createStars = function () {
+        Starrr.prototype.createStars = function() {
             var _i, _ref, _results;
 
             _results = [];
@@ -170,31 +193,31 @@ var __slice = [].slice;
             return _results;
         };
 
-        Starrr.prototype.setRating = function (rating) {
+        Starrr.prototype.setRating = function(rating) {
             if (this.options.rating === rating) {
                 rating = void 0;
             }
             this.options.rating = rating;
             this.syncRating();
-            return this.$el.trigger('starrr:change', rating);
+            return this.$el.trigger("starrr:change", rating);
         };
 
-        Starrr.prototype.syncRating = function (rating) {
+        Starrr.prototype.syncRating = function(rating) {
             var i, _i, _j, _ref;
 
             rating || (rating = this.options.rating);
             if (rating) {
                 for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-                    this.$el.find('span').eq(i).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+                    this.$el.find("span").eq(i).removeClass("glyphicon-star-empty").addClass("glyphicon-star");
                 }
             }
             if (rating && rating < 5) {
                 for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
-                    this.$el.find('span').eq(i).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                    this.$el.find("span").eq(i).removeClass("glyphicon-star").addClass("glyphicon-star-empty");
                 }
             }
             if (!rating) {
-                return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                return this.$el.find("span").removeClass("glyphicon-star").addClass("glyphicon-star-empty");
             }
         };
 
@@ -202,18 +225,18 @@ var __slice = [].slice;
 
     })();
     return $.fn.extend({
-        starrr: function () {
+        starrr: function() {
             var args, option;
 
             option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-            return this.each(function () {
+            return this.each(function() {
                 var data;
 
-                data = $(this).data('star-rating');
+                data = $(this).data("star-rating");
                 if (!data) {
-                    $(this).data('star-rating', (data = new Starrr($(this), option)));
+                    $(this).data("star-rating", (data = new Starrr($(this), option)));
                 }
-                if (typeof option === 'string') {
+                if (typeof option === "string") {
                     return data[option].apply(data, args);
                 }
             });
@@ -221,70 +244,87 @@ var __slice = [].slice;
     });
 })(window.jQuery, window);
 
-$(function () {
+$(function() {
     return $(".starrr").starrr();
 });
 
-$(document).ready(function () {
+$(document)
+    .ready(function() {
 
-    $('#stars').on('starrr:change', function (e, value) {
-        $('#count').html(value);
+        $("#stars")
+            .on("starrr:change",
+                function(e, value) {
+                    $("#count").html(value);
+                });
+
+
+        $("#stars-existing")
+            .on("starrr:change",
+                function(e, value) {
+                    $("#count-existing").html(value);
+                });
+
     });
-
-
-    $('#stars-existing').on('starrr:change', function (e, value) {
-        $('#count-existing').html(value);
-    });
-
-});
 /** ******  /star rating  *********************** **/
 /** ******  table  *********************** **/
-$('table input').on('ifChecked', function () {
-    check_state = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('table input').on('ifUnchecked', function () {
-    check_state = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
+$("table input")
+    .on("ifChecked",
+        function() {
+            check_state = "";
+            $(this).parent().parent().parent().addClass("selected");
+            countChecked();
+        });
+$("table input")
+    .on("ifUnchecked",
+        function() {
+            check_state = "";
+            $(this).parent().parent().parent().removeClass("selected");
+            countChecked();
+        });
 
-var check_state = '';
-$('.bulk_action input').on('ifChecked', function () {
-    check_state = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('.bulk_action input').on('ifUnchecked', function () {
-    check_state = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifChecked', function () {
-    check_state = 'check_all';
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifUnchecked', function () {
-    check_state = 'uncheck_all';
-    countChecked();
-});
+var check_state = "";
+$(".bulk_action input")
+    .on("ifChecked",
+        function() {
+            check_state = "";
+            $(this).parent().parent().parent().addClass("selected");
+            countChecked();
+        });
+$(".bulk_action input")
+    .on("ifUnchecked",
+        function() {
+            check_state = "";
+            $(this).parent().parent().parent().removeClass("selected");
+            countChecked();
+        });
+$(".bulk_action input#check-all")
+    .on("ifChecked",
+        function() {
+            check_state = "check_all";
+            countChecked();
+        });
+$(".bulk_action input#check-all")
+    .on("ifUnchecked",
+        function() {
+            check_state = "uncheck_all";
+            countChecked();
+        });
 
 function countChecked() {
-    if (check_state == 'check_all') {
-        $(".bulk_action input[name='table_records']").iCheck('check');
+    if (check_state == "check_all") {
+        $(".bulk_action input[name='table_records']").iCheck("check");
     }
-    if (check_state == 'uncheck_all') {
-        $(".bulk_action input[name='table_records']").iCheck('uncheck');
+    if (check_state == "uncheck_all") {
+        $(".bulk_action input[name='table_records']").iCheck("uncheck");
     }
     var n = $(".bulk_action input[name='table_records']:checked").length;
     if (n > 0) {
-        $('.column-title').hide();
-        $('.bulk-actions').show();
-        $('.action-cnt').html(n + ' Records Selected');
+        $(".column-title").hide();
+        $(".bulk-actions").show();
+        $(".action-cnt").html(n + " Records Selected");
     } else {
-        $('.column-title').show();
-        $('.bulk-actions').hide();
+        $(".column-title").show();
+        $(".bulk-actions").hide();
     }
 }
 /** ******  /table  *********************** **/
@@ -296,40 +336,46 @@ function countChecked() {
 /** ******    *********************** **/
 /** ******  Accordion  *********************** **/
 
-$(function () {
-    $(".expand").on("click", function () {
-        $(this).next().slideToggle(200);
-        $expand = $(this).find(">:first-child");
+$(function() {
+    $(".expand")
+        .on("click",
+            function() {
+                $(this).next().slideToggle(200);
+                $expand = $(this).find(" > :first-child");
 
-        if ($expand.text() == "+") {
-            $expand.text("-");
-        } else {
-            $expand.text("+");
-        }
-    });
+                if ($expand.text() == "+") {
+                    $expand.text("-");
+                } else {
+                    $expand.text("+");
+                }
+            });
 });
 
 /** ******  Accordion  *********************** **/
 
 /** ******  scrollview  *********************** **/
-$(document).ready(function () {
+$(document)
+    .ready(function() {
 
-    $(".scroll-view").niceScroll({
-        touchbehavior: true,
-        cursorcolor: "rgba(42, 63, 84, 0.35)"
+        $(".scroll-view")
+            .niceScroll({
+                touchbehavior: true,
+                cursorcolor: "rgba(42, 63, 84, 0.35)"
+            });
+
     });
-
-});
 /** ******  /scrollview  *********************** **/
 
 /** ******  NProgress  *********************** **/
-if (typeof NProgress != 'undefined') {
-    $(document).ready(function () {
-        NProgress.start();
-    });
+if (typeof NProgress != "undefined") {
+    $(document)
+        .ready(function() {
+            NProgress.start();
+        });
 
-    $(window).load(function () {
-        NProgress.done();
-    });
+    $(window)
+        .load(function() {
+            NProgress.done();
+        });
 }
 /** ******  NProgress  *********************** **/

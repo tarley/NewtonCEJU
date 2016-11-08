@@ -1,8 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -13,7 +9,7 @@ using Newton.CJU.Models;
 namespace Newton.CJU.Controllers
 {
     [Authorize]
-    public class AutenticacaoController : Controller 
+    public class AutenticacaoController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -30,26 +26,14 @@ namespace Newton.CJU.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
         //
@@ -69,13 +53,11 @@ namespace Newton.CJU.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
             // This doesn't count login failures towards Autenticacao lockout
             // To enable password failures to trigger Autenticacao lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Senha, false, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Senha, false, false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -104,13 +86,13 @@ namespace Newton.CJU.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Usuario { Nome = model.Nome, UserName = model.Email, Email = model.Email };
+                var user = new Usuario {Nome = model.Nome, UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Senha);
                 if (result.Succeeded)
                 {
                     UserManager.AddToRole(user.Id, "Cliente");
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    
+                    await SignInManager.SignInAsync(user, false, false);
+
                     // For more information on how to enable Autenticacao confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -159,31 +141,25 @@ namespace Newton.CJU.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
-            {
                 ModelState.AddModelError("", error);
-            }
         }
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
-            {
                 return Redirect(returnUrl);
-            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -207,14 +183,13 @@ namespace Newton.CJU.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties {RedirectUri = RedirectUri};
                 if (UserId != null)
-                {
                     properties.Dictionary[XsrfKey] = UserId;
-                }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
         #endregion
     }
 }

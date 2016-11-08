@@ -1,15 +1,14 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-
-using Newton.CJU.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newton.CJU.Models;
 
 namespace Newton.CJU.DAL
 {
     public class CJUContext : IdentityDbContext<Usuario>
     {
-        public CJUContext() : base("CJUContext", throwIfV1Schema: false) 
-        { 
+        public CJUContext() : base("CJUContext", false)
+        {
         }
 
         public DbSet<AreaConhecimento> AreasConhecimento { get; set; }
@@ -17,7 +16,9 @@ namespace Newton.CJU.DAL
         public DbSet<FatoCotidiano> FatosCotidiano { get; set; }
         public DbSet<Historico> Historicos { get; set; }
         public DbSet<Situacao> Situacoes { get; set; }
-        
+
+        public DbSet<Solicitacao> Solicitacaos { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,7 +30,5 @@ namespace Newton.CJU.DAL
         {
             return new CJUContext();
         }
-
-        public System.Data.Entity.DbSet<Newton.CJU.Models.Solicitacao> Solicitacaos { get; set; }
     }
 }

@@ -1,28 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Newton.CJU.DAL;
 using Newton.CJU.Models;
-using Microsoft.AspNet.Identity;
 
 namespace Newton.CJU.Controllers
 {
     public class AtividadesSemestralController : Controller
     {
-        private CJUContext db = new CJUContext();
+        private readonly CJUContext db = new CJUContext();
 
         // GET: AtividadesSemestral
         [Authorize(Roles = "Professor, Monitor")]
         public ActionResult Index()
         {
             var atividadesSemestrais = db.AtividadesSemestrais
-                                            .Include(a => a.AreaConhecimento)
-                                            .Include(a => a.Usuario);
+                .Include(a => a.AreaConhecimento)
+                .Include(a => a.Usuario);
             return View(atividadesSemestrais.ToList());
         }
 
@@ -31,14 +28,10 @@ namespace Newton.CJU.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AtividadeSemestral atividadeSemestral = db.AtividadesSemestrais.Find(id);
+            var atividadeSemestral = db.AtividadesSemestrais.Find(id);
             if (atividadeSemestral == null)
-            {
                 return HttpNotFound();
-            }
             return View(atividadeSemestral);
         }
 
@@ -56,7 +49,8 @@ namespace Newton.CJU.Controllers
         [Authorize(Roles = "Professor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
+        public ActionResult Create(
+            [Bind(Include = "Id,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +63,8 @@ namespace Newton.CJU.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome", atividadeSemestral.AreaConhecimentoId);
+            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome",
+                atividadeSemestral.AreaConhecimentoId);
             return View(atividadeSemestral);
         }
 
@@ -78,15 +73,12 @@ namespace Newton.CJU.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AtividadeSemestral atividadeSemestral = db.AtividadesSemestrais.Find(id);
+            var atividadeSemestral = db.AtividadesSemestrais.Find(id);
             if (atividadeSemestral == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome", atividadeSemestral.AreaConhecimentoId);
+            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome",
+                atividadeSemestral.AreaConhecimentoId);
             return View(atividadeSemestral);
         }
 
@@ -96,7 +88,8 @@ namespace Newton.CJU.Controllers
         [Authorize(Roles = "Professor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
+        public ActionResult Edit(
+            [Bind(Include = "Id,AreaConhecimentoId,Ano,Semestre,Ativo")] AtividadeSemestral atividadeSemestral)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +97,8 @@ namespace Newton.CJU.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome", atividadeSemestral.AreaConhecimentoId);
+            ViewBag.AreaConhecimentoId = new SelectList(db.AreasConhecimento, "Id", "Nome",
+                atividadeSemestral.AreaConhecimentoId);
             return View(atividadeSemestral);
         }
 
@@ -113,24 +107,21 @@ namespace Newton.CJU.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AtividadeSemestral atividadeSemestral = db.AtividadesSemestrais.Find(id);
+            var atividadeSemestral = db.AtividadesSemestrais.Find(id);
             if (atividadeSemestral == null)
-            {
                 return HttpNotFound();
-            }
             return View(atividadeSemestral);
         }
 
         // POST: AtividadesSemestral/Delete/5
         [Authorize(Roles = "Professor")]
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AtividadeSemestral atividadeSemestral = db.AtividadesSemestrais.Find(id);
+            var atividadeSemestral = db.AtividadesSemestrais.Find(id);
             db.AtividadesSemestrais.Remove(atividadeSemestral);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -139,9 +130,7 @@ namespace Newton.CJU.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }
