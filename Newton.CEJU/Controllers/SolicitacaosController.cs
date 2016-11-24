@@ -202,11 +202,17 @@ namespace Newton.CJU.Controllers
                         v_Solicitacao.Situacao = SituacaoEnum.EmAnalise;
                         v_Solicitacao.UsuarioAlunoId = p_SolicitacaoEdicaoViewModel.GuidMonitor;
                     }
-                    else if (Request.Form["EnviarCliente"] != null)
+                    if (Request.Form["EnviarCliente"] != null)
                     {
                         v_Solicitacao.Situacao = SituacaoEnum.Respondido;
                         v_Solicitacao.UsuarioAlunoId = null;
                     }
+
+                    if (Request.Form["SalvarAlteracoes"] != null)
+                    {
+                        v_Solicitacao.Situacao = SituacaoEnum.EmAnalise;
+                        v_Solicitacao.UsuarioAlunoId = p_SolicitacaoEdicaoViewModel.GuidMonitor;
+                    } 
 
                     db.SaveChanges();
                     return RedirectToAction("Index");

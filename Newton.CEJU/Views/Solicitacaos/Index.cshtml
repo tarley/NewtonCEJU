@@ -66,9 +66,12 @@
 
 <br>
 <div>
+    @if (User.IsInRole("Cliente"))
+    {
     <p>
         @Html.ActionLink("Nova Solicitação", "Create")
     </p>
+    }
 </div>
 <table class="table">
     <tr>

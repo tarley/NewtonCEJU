@@ -75,19 +75,37 @@
                 @Html.ValidationMessageFor(model => model.Fundamentacao, "", new {@class = "text-danger"})
             </div>
         </div>
-
+@if (User.IsInRole("Professor"))
+{
         <div class="form-group">
-            @Html.LabelFor(model => model.Correcao, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Correcao, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Correcao, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Correcao, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Correcao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Correcao, "", new { @class = "text-danger" })
             </div>
         </div>
-
+    }
+    else{
+        <div class="form-group">
+            @Html.LabelFor(model => model.Correcao, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Correcao, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Correcao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+            @if (User.IsInRole("Professor"))
+            {
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Enviar ao Monitor</a>
+
                 <input type="submit" value="Enviar ao Cliente" name="EnviarCliente" class="btn btn-primary"/>
+            }
+            @if (User.IsInRole("Monitor"))
+            {
+                <input type="submit" value="Salvar" name="SalvarAlteracoes" class="btn btn-primary" />
+            }
             </div>
         </div>
     </div>
