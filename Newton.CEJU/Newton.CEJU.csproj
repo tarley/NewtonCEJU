@@ -248,6 +248,8 @@
     <Content Include="Scripts\nprogress.js" />
     <Content Include="Scripts\pace.min.js" />
     <Content Include="Scripts\skycons.min.js" />
+    <Content Include="script_db\00_create_database.sql" />
+    <Content Include="script_db\01_inserts.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
