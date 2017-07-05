@@ -210,7 +210,7 @@ namespace Newton.CJU.Controllers
 
                     if (Request.Form["SalvarAlteracoes"] != null)
                     {
-                        v_Solicitacao.Situacao = SituacaoEnum.EmAnalise;
+                        v_Solicitacao.Situacao = SituacaoEnum.AguardandoAceite;
                         v_Solicitacao.UsuarioAlunoId = p_SolicitacaoEdicaoViewModel.GuidMonitor;
                     } 
 

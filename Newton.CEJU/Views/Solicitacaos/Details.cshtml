@@ -1,4 +1,5 @@
-﻿@model Newton.CJU.Models.Solicitacao
+﻿@using Newton.CJU.Models.Enum
+@model Newton.CJU.Models.Solicitacao
 
 @{
     ViewBag.Title = "Solicitações";
@@ -32,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Situacao)
+            @Model.GetSituacaoDescription()
         </dd>
 
         @if (Request.IsAuthenticated)
@@ -97,14 +98,17 @@
             }
         }
 
-        <dt>
-            @Html.DisplayName("Parecer")
-        </dt>
+        @if(Request.IsAuthenticated && (User.IsInRole("Professor") || 
+            User.IsInRole("Monitor") || Model.Situacao == SituacaoEnum.Respondido))
+        {
+            <dt>
+                @Html.DisplayName("Parecer")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Parecer)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Parecer)
+            </dd>
+        }
     </dl>
 
 </div>
