@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newton.CJU.Models.Enum;
+using System.Reflection;
 
 namespace Newton.CJU.Models
 {
@@ -61,5 +62,23 @@ namespace Newton.CJU.Models
 
         public virtual ICollection<Historico> Historico { get; set; }
         public virtual AtividadeSemestral AtividadeSemestral { get; set; }
+
+        public string GetSituacaoDescription()
+        {
+            // Get the Description attribute value for the enum value
+            FieldInfo fi = Situacao.GetType().GetField(Situacao.ToString());
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                    typeof(DescriptionAttribute), false);
+
+            if (attributes.Length > 0)
+            {
+                return attributes[0].Description;
+            }
+            else
+            {
+                return Situacao.ToString();
+            }
+        }
     }
 }

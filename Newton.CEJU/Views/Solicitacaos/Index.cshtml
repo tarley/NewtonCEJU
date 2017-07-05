@@ -160,7 +160,7 @@
                 }
             }
             <td>
-                @Html.DisplayFor(modelItem => item.Situacao)
+                @item.GetSituacaoDescription()
             </td>
             @if (Request.IsAuthenticated)
             {
